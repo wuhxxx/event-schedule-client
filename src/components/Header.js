@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class TopBar extends Component {
+class Header extends Component {
     render() {
         return (
             <header className="cd-main-header">
@@ -38,4 +38,4 @@ class TopBar extends Component {
     }
 }
 
-export default TopBar;
+export default Header;
