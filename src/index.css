@@ -1,8 +1,9 @@
+/* reset styles, as different browsers have different default styles. */
 @import "./reset.css";
 
 /* -------------------------------- 
 
-Primary style
+Primary style - by CodyHouse.co
 
 -------------------------------- */
 *,
@@ -18,13 +19,15 @@ html {
 
 body {
     font-size: 1.6rem;
-    font-family: "PT Sans", sans-serif;
-    color: #505260;
+    /* font-family: "PT Sans", sans-serif; */
+    /* color: #505260; */
     background-color: white;
 }
 
 a {
-    color: #2f889a;
+    /* todo: use these colors for <a> in modal! */
+    /* color: #2f889a;  */
+    /* color: #A2B9B2; */
     text-decoration: none;
 }
 
@@ -32,11 +35,12 @@ img {
     max-width: 100%;
 }
 
-input,
+/* todo: use this font set (or not) in modal! */
+/* input,
 textarea {
     font-family: "PT Sans", sans-serif;
     font-size: 1.6rem;
-}
+} */
 
 input::-ms-clear,
 textarea::-ms-clear {
