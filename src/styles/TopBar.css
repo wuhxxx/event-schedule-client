@@ -1,3 +1,9 @@
+/* font family for TopBar, not the same as Schedule. */
+
+body {
+    font-family: "PT Sans", sans-serif;
+}
+
 /* -------------------------------- 
 
 Login/Signup modal window - by CodyHouse.co
