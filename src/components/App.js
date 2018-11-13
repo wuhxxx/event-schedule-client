@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TopBar from "./TopBar.js";
+import Schedule from "./Schedule.js";
 import "../styles/App.css";
 
 class App extends Component {
@@ -7,6 +8,7 @@ class App extends Component {
         return (
             <div>
                 <TopBar />
+                <Schedule />
             </div>
         );
     }
