@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../constants.js";
 import Timeline from "./Timeline.js";
-import Week from "./Week.js";
+import EventsWrapper from "./EventsWrapper.js";
 
 import "../styles/Schedule.css";
 
@@ -51,7 +51,9 @@ export default class Schedule extends Component {
                     from={this.state.timelineFrom}
                     to={this.state.timelineTo}
                 />
-                <Week eventsGroupUlHeight={this.geteventsGroupUlHeight()} />
+                <EventsWrapper
+                    eventsGroupUlHeight={this.geteventsGroupUlHeight()}
+                />
             </div>
         );
     }

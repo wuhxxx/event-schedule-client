@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import EventsGroup from "./EventsGroup.js";
 import PropTypes from "prop-types";
-import "../styles/Week.css";
+import "../styles/EventsWrapper.css";
 
-export default class Week extends Component {
+export default class EventsWrapper extends Component {
     // prop types
     static propTypes = {
         eventsGroupUlHeight: PropTypes.number
