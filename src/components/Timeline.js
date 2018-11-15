@@ -23,40 +23,17 @@ export default class Timeline extends Component {
 
         // state of timeline
         this.state = {
-            from: this.trimFrom(),
-            to: this.trimTo()
+            // from: this.props.from,
+            // to: this.props.to
         };
     }
-
-    // trim and return timeline's start time
-    trimFrom = () => {
-        // number of minutes, range [0, 1440]
-        // default value is 9 * 60
-        if (this.props.from >= DEFAULT_FROM) return DEFAULT_FROM;
-        // must be a integer multiple of 60, "~~" is Math.floor()
-        else
-            return this.props.from <= 0
-                ? 0
-                : ~~(this.props.from / TIME_UNIT) * TIME_UNIT;
-    };
-
-    // trim and return timeline's end time
-    trimTo = () => {
-        // number of minutes, range [0, 1440], must be larger than state.from
-        // default value is 18 * 60
-        if (this.props.to <= DEFAULT_TO) return DEFAULT_TO;
-        else
-            return this.props.to >= 1440
-                ? 1440
-                : (~~(this.props.to / TIME_UNIT) + 1) * TIME_UNIT;
-    };
 
     // return a <ul> which has a bunch of <li> according to timelins's start and end
     getTimeline = () => {
         const timeList = [];
         for (
-            let time = this.state.from;
-            time <= this.state.to;
+            let time = this.props.from;
+            time <= this.props.to;
             time += TIME_UNIT
         ) {
             timeList.push(
@@ -70,6 +47,6 @@ export default class Timeline extends Component {
     };
 
     render() {
-        return <div class="timeline">{this.getTimeline()}</div>;
+        return <div className="timeline">{this.getTimeline()}</div>;
     }
 }
