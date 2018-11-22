@@ -96,13 +96,13 @@ Main Components
     }
 }
 
-/* ? event name and date */
-.cd-schedule.loading .events .single-event {
-    /* the class .loading is added by default to the .cd-schedule element
+/* .cd-schedule.loading .events .single-event { */
+/* the class .loading is added by default to the .cd-schedule element
          it is removed as soon as the single events are placed in the schedule plan (using javascript) */
-    opacity: 0;
-}
+/* opacity: 0;
+} */
 
+/* ? event name and date */
 .cd-schedule .event-name,
 .cd-schedule .event-date {
     display: block;
@@ -430,6 +430,7 @@ Main Components
     }
 }
 
+/* todo: cover layer, used for modal */
 .cd-schedule .cover-layer {
     /* layer between the content and the modal window */
     position: fixed;
