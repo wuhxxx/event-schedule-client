@@ -25,8 +25,7 @@ body {
 }
 
 a {
-    /* todo: use these colors for <a> in modal! */
-    /* color: #2f889a;  */
+    /* todo: <a> tag color of simple schedule template */
     /* color: #A2B9B2; */
     text-decoration: none;
 }
@@ -34,13 +33,6 @@ a {
 img {
     max-width: 100%;
 }
-
-/* todo: use this font set (or not) in modal! */
-/* input,
-textarea {
-    font-family: "PT Sans", sans-serif;
-    font-size: 1.6rem;
-} */
 
 input::-ms-clear,
 textarea::-ms-clear {
