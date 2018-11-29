@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import classTogglerBuilder from "../tools/classTogglerBuilder.js";
 
 import "../styles/UserForm.css";
 
 export default class LoginForm extends Component {
     state = {
-        isPasswordHidden: true
+        isPasswordHidden: true,
+        isEmailError: false,
+        isPasswordError: false
     };
 
     toggleHidePassword = event => {
@@ -14,6 +17,16 @@ export default class LoginForm extends Component {
             isPasswordHidden: !prevState.isPasswordHidden
         }));
     };
+
+    toggleInputClassBy = classTogglerBuilder(
+        "cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border",
+        "cd-signin-modal__input--has-error"
+    );
+
+    toggleSpanClassBy = classTogglerBuilder(
+        "cd-signin-modal__error",
+        "cd-signin-modal__error--is-visible"
+    );
 
     render() {
         return (
@@ -26,13 +39,19 @@ export default class LoginForm extends Component {
                         E-mail
                     </label>
                     <input
-                        className="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
                         id="signin-email"
                         type="email"
                         placeholder="E-mail"
+                        className={this.toggleInputClassBy(
+                            this.state.isEmailError
+                        )}
                     />
-                    <span className="cd-signin-modal__error">
-                        Error message here!
+                    <span
+                        className={this.toggleSpanClassBy(
+                            this.state.isEmailError
+                        )}
+                    >
+                        User exisited!
                     </span>
                 </p>
 
@@ -44,10 +63,12 @@ export default class LoginForm extends Component {
                         Password
                     </label>
                     <input
-                        className="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding cd-signin-modal__input--has-border"
                         id="signin-password"
                         placeholder="Password"
                         type={this.state.isPasswordHidden ? "password" : "text"}
+                        className={this.toggleInputClassBy(
+                            this.state.isPasswordError
+                        )}
                     />
                     <a
                         href="#0"
@@ -56,7 +77,11 @@ export default class LoginForm extends Component {
                     >
                         {this.state.isPasswordHidden ? "Show" : "Hide"}
                     </a>
-                    <span className="cd-signin-modal__error">
+                    <span
+                        className={this.toggleSpanClassBy(
+                            this.state.isPasswordError
+                        )}
+                    >
                         Error message here!
                     </span>
                 </p>
