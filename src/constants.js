@@ -11,3 +11,5 @@ export const LOGINMODAL_FORM_ATTRIBUTE_NAME = "data-form";
 export const LOGINMODAL_FORM_SIGNIN = "Signin";
 export const LOGINMODAL_FORM_RESET = "Reset";
 export const LOGINMODAL_FORM_SIGNUP = "Signup";
+// api
+export const API_ROOT = "localhost:2333/api/v1";
