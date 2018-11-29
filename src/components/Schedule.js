@@ -9,8 +9,8 @@ export default class Schedule extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timelineFrom: this.trimFrom(100),
-            timelineTo: this.trimTo(1400)
+            timelineFrom: this.trimFrom(540),
+            timelineTo: this.trimTo(18 * 60)
         };
     }
 
