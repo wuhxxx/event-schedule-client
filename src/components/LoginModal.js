@@ -62,43 +62,45 @@ export default class LoginModal extends Component {
     };
 
     handleClickCoverLayer = event => {
-        console.log("Click cover layer");
-        event.preventDefault();
+        console.log("click cover layer");
         event.stopPropagation();
-        if (event.target.classList.contains("js-signin-modal"))
-            this.props.closeModal();
+        // if (event.target.getAttribute("data-iscoverlayer"))
+        this.props.closeModal();
     };
 
     handleClickCloseButton = event => {
         console.log("Click close button");
         event.preventDefault();
         event.stopPropagation();
-        if (event.target.classList.contains("js-close"))
-            this.props.closeModal();
+        // if (event.target.classList.contains("js-close"))
+        this.props.closeModal();
     };
 
     render() {
         return ReactDOM.createPortal(
             <div
                 onKeyDown={this.handleESCKeyDown}
-                onClick={this.handleClickCoverLayer}
                 tabIndex="-1"
                 ref={node => (this.mountedDOMNode = node)}
                 className={
-                    // class js-signin-modal is used to distinguish between cover layer and form
-                    // click on cover layer triggers closing modal, form will not
+                    // deleted class js-signin-modal,
+                    // which is used to distinguish between cover layer and form
                     this.props.isModalOpen
-                        ? "cd-signin-modal js-signin-modal cd-signin-modal--is-visible"
-                        : "cd-signin-modal js-signin-modal"
+                        ? "cd-signin-modal cd-signin-modal--is-visible"
+                        : "cd-signin-modal"
                 }
             >
-                {/* this is the entire modal form, including the background */}
+                {/* Cover Layer */}
+                <div
+                    data-iscoverlayer="true"
+                    className="login-modal-cover-layer"
+                    onClick={this.handleClickCoverLayer}
+                />
 
+                {/* Forms Container */}
                 <div className="cd-signin-modal__container">
-                    {/* this is the container wrapper */}
-
-                    <ul className="cd-signin-modal__switcher js-signin-modal-switcher js-signin-modal-trigger">
-                        {/* Signin/Signup tabs */}
+                    {/* Signin/Signup tabs */}
+                    <ul className="cd-signin-modal__switcher js-signin-modal-switcher">
                         <li>
                             <a
                                 href="#0"
@@ -135,6 +137,7 @@ export default class LoginModal extends Component {
                         </li>
                     </ul>
 
+                    {/* Login Form */}
                     <div
                         data-type="login"
                         className={
@@ -145,8 +148,8 @@ export default class LoginModal extends Component {
                         }
                     >
                         <LoginForm />
-                        {/* reset password entry, no plan to implement yet */}
-                        <p className="cd-signin-modal__bottom-message js-signin-modal-trigger">
+                        {/* reset password entry, just delete account */}
+                        <p className="cd-signin-modal__bottom-message">
                             <a
                                 href="#0"
                                 data-form={LOGINMODAL_FORM_RESET}
@@ -156,7 +159,8 @@ export default class LoginModal extends Component {
                             </a>
                         </p>
                     </div>
-                    {/* cd-signin-modal__block */}
+
+                    {/* Signup Form */}
                     <div
                         data-type="signup"
                         className={
@@ -168,7 +172,6 @@ export default class LoginModal extends Component {
                     >
                         <SignupForm />
                     </div>
-                    {/* cd-signin-modal__block */}
 
                     {/* reset password form, just delete account */}
                     <div
@@ -184,10 +187,10 @@ export default class LoginModal extends Component {
                             {/* Original message: Lost your password? Please enter your email address.
                             You will receive a link to create a new password. */}
                             Lost your password? Please enter your email address.
-                            Your account will be deleted.
+                            Your account will be reset.
                         </p>
                         <ResetForm />
-                        <p className="cd-signin-modal__bottom-message js-signin-modal-trigger">
+                        <p className="cd-signin-modal__bottom-message">
                             <a
                                 href="#0"
                                 data-form={LOGINMODAL_FORM_SIGNIN}
@@ -197,17 +200,14 @@ export default class LoginModal extends Component {
                             </a>
                         </p>
                     </div>
-                    {/* cd-signin-modal__block */}
                     <a
                         href="#0"
-                        className="cd-signin-modal__close js-close"
+                        className="cd-signin-modal__close"
                         onClick={this.handleClickCloseButton}
                     >
                         Close
                     </a>
                 </div>
-                {/* cd-signin-modal__container */}
-                {/* cd-signin-modal */}
             </div>,
             loginModalRoot
         );
