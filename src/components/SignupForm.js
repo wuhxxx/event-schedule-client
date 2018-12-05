@@ -1,22 +1,23 @@
 import React, { Component } from "react";
 import classTogglerBuilder from "../tools/classTogglerBuilder.js";
+import { userFormInputValidators } from "../tools/validators.js";
+import { USERNAME, EMAIL, PASSWORD } from "../constants.js";
 
 import "../styles/UserForm.css";
-
-const usernameFieldName = "usernameInput",
-    emailFieldName = "emailInput",
-    passwordFieldName = "passwordInput";
 
 export default class SignupForm extends Component {
     state = {
         isPasswordHidden: true,
-        usernameInput: {
+        [USERNAME]: {
+            value: "",
             hasError: false
         },
-        emailInput: {
+        [EMAIL]: {
+            value: "",
             hasError: false
         },
-        passwordInput: {
+        [PASSWORD]: {
+            value: "",
             hasError: false
         }
     };
@@ -26,8 +27,10 @@ export default class SignupForm extends Component {
         const value = target.value;
         const name = target.name;
 
+        // only validate input value only target has
+        const hasError = value ? userFormInputValidators[name](value) : false;
         this.setState({
-            [name]: { value, hasError: false }
+            [name]: { value, hasError }
         });
     };
 
@@ -70,19 +73,19 @@ export default class SignupForm extends Component {
                     <input
                         type="text"
                         placeholder="Username"
-                        name={usernameFieldName}
-                        value={this.state[usernameFieldName].value}
+                        name={USERNAME}
+                        value={this.state[USERNAME].value}
                         onChange={this.handleInputValueChange}
                         className={this.toggleInputClassBy(
-                            this.state[usernameFieldName].hasError
+                            this.state[USERNAME].hasError
                         )}
                     />
                     <span
                         className={this.toggleSpanClassBy(
-                            this.state[usernameFieldName].hasError
+                            this.state[USERNAME].hasError
                         )}
                     >
-                        Error message here!
+                        {this.state[USERNAME].hasError}
                     </span>
                 </p>
 
@@ -97,19 +100,19 @@ export default class SignupForm extends Component {
                         id="signup-email"
                         type="email"
                         placeholder="E-mail"
-                        name={emailFieldName}
-                        value={this.state[emailFieldName].value}
+                        name={EMAIL}
+                        value={this.state[EMAIL].value}
                         onChange={this.handleInputValueChange}
                         className={this.toggleInputClassBy(
-                            this.state[emailFieldName].hasError
+                            this.state[EMAIL].hasError
                         )}
                     />
                     <span
                         className={this.toggleSpanClassBy(
-                            this.state[emailFieldName].hasError
+                            this.state[EMAIL].hasError
                         )}
                     >
-                        Error message here!
+                        {this.state[EMAIL].hasError}
                     </span>
                 </p>
 
@@ -123,12 +126,12 @@ export default class SignupForm extends Component {
                     <input
                         id="signup-password"
                         placeholder="Password"
-                        name={passwordFieldName}
-                        value={this.state[passwordFieldName].value}
+                        name={PASSWORD}
+                        value={this.state[PASSWORD].value}
                         onChange={this.handleInputValueChange}
                         type={this.state.isPasswordHidden ? "password" : "text"}
                         className={this.toggleInputClassBy(
-                            this.state[passwordFieldName].hasError
+                            this.state[PASSWORD].hasError
                         )}
                     />
                     <a
@@ -140,10 +143,10 @@ export default class SignupForm extends Component {
                     </a>
                     <span
                         className={this.toggleSpanClassBy(
-                            this.state[passwordFieldName].hasError
+                            this.state[PASSWORD].hasError
                         )}
                     >
-                        Error message here!
+                        {this.state[PASSWORD].hasError}
                     </span>
                 </p>
 

@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import classTogglerBuilder from "../tools/classTogglerBuilder.js";
+import { userFormInputValidators } from "../tools/validators.js";
+import { EMAIL } from "../constants.js";
 
 import "../styles/UserForm.css";
-
-const emailFieldName = "emailInput";
 
 export default class ResetForm extends Component {
     state = {
         isEmailError: false,
-        emailInput: {
+        [EMAIL]: {
+            value: "",
             hasError: false
         }
     };
@@ -18,8 +19,10 @@ export default class ResetForm extends Component {
         const value = target.value;
         const name = target.name;
 
+        // only validate input value only target has
+        const hasError = value ? userFormInputValidators[name](value) : false;
         this.setState({
-            [name]: { value, hasError: false }
+            [name]: { value, hasError }
         });
     };
 
@@ -55,16 +58,16 @@ export default class ResetForm extends Component {
                         id="reset-email"
                         type="email"
                         placeholder="E-mail"
-                        name={emailFieldName}
-                        value={this.state[emailFieldName].value}
+                        name={EMAIL}
+                        value={this.state[EMAIL].value}
                         onChange={this.handleInputValueChange}
                         className={this.toggleInputClassBy(
-                            this.state[emailFieldName].hasError
+                            this.state[EMAIL].hasError
                         )}
                     />
                     <span
                         className={this.toggleSpanClassBy(
-                            this.state[emailFieldName].hasError
+                            this.state[EMAIL].hasError
                         )}
                     >
                         Error message here!
