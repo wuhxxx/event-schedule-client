@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import LoginModal from "./LoginModal.js";
 import {
-    LOGINMODAL_FORM_ATTRIBUTE_NAME,
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_SIGNUP
 } from "../../constants.js";
@@ -41,20 +40,17 @@ export default class TopBar extends Component {
     }
 
     // open modal with specific form
-    openModalWithForm = event => {
-        // console.log("Open modal");
+    openModalWithForm = formToOpen => event => {
         event.preventDefault();
         event.stopPropagation();
-        const formToOpen = event.target.getAttribute(
-            LOGINMODAL_FORM_ATTRIBUTE_NAME
-        );
-        if (formToOpen)
-            this.setState({ isModalOpen: true, formToOpen: formToOpen });
+        // const formToOpen = event.target.getAttribute(
+        //     LOGINMODAL_FORM_ATTRIBUTE_NAME
+        // );
+        if (formToOpen) this.setState({ isModalOpen: true, formToOpen });
         else return;
     };
 
     closeModal = () => {
-        // console.log("Close modal");
         this.setState({ isModalOpen: false });
     };
 
@@ -65,15 +61,7 @@ export default class TopBar extends Component {
                 "cd-main-nav__list js-signin-modal-trigger cd-main-nav__list--is-visible";
 
         return (
-            <div
-            // onKeyDown={event => {
-            //     console.log("Key down on topbar");
-            //     if (event.keyCode === 27) {
-            //         event.stopPropagation();
-            //         this.closeModal();
-            //     }
-            // }}
-            >
+            <div>
                 <header className="cd-main-header">
                     <div className="cd-main-header__logo">
                         <img src={logo} alt="Logo" />
@@ -94,8 +82,9 @@ export default class TopBar extends Component {
                                 <a
                                     className="cd-main-nav__item cd-main-nav__item--signin"
                                     href="#0"
-                                    data-form={LOGINMODAL_FORM_SIGNIN}
-                                    onClick={this.openModalWithForm}
+                                    onClick={this.openModalWithForm(
+                                        LOGINMODAL_FORM_SIGNIN
+                                    )}
                                 >
                                     Sign in
                                 </a>
@@ -104,8 +93,9 @@ export default class TopBar extends Component {
                                 <a
                                     className="cd-main-nav__item cd-main-nav__item--signup"
                                     href="#0"
-                                    data-form={LOGINMODAL_FORM_SIGNUP}
-                                    onClick={this.openModalWithForm}
+                                    onClick={this.openModalWithForm(
+                                        LOGINMODAL_FORM_SIGNUP
+                                    )}
                                 >
                                     Sign up
                                 </a>
@@ -113,6 +103,8 @@ export default class TopBar extends Component {
                         </ul>
                     </nav>
                 </header>
+                {/* if simply mount and unmout modal according to state, 
+                there will be no animation for modal */}
                 <LoginModal
                     isModalOpen={this.state.isModalOpen}
                     formToOpen={this.state.formToOpen}

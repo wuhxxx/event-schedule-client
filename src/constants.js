@@ -7,7 +7,6 @@ export const DEFAULT_TO = 18 * 2 * 30;
 // Authentication header prefix
 export const AUTH_HEADER = "Bearer";
 // login modal states
-export const LOGINMODAL_FORM_ATTRIBUTE_NAME = "data-form";
 export const LOGINMODAL_FORM_SIGNIN = "Signin";
 export const LOGINMODAL_FORM_RESET = "Reset";
 export const LOGINMODAL_FORM_SIGNUP = "Signup";

@@ -6,7 +6,7 @@ import {
     LOGINMODAL_FORM_RESET,
     LOGINMODAL_FORM_SIGNUP
 } from "../../constants.js";
-import LoginForm from "./LoginForm.js";
+import SigninForm from "./SigninForm.js";
 import SignupForm from "./SignupForm.js";
 import ResetForm from "./ResetForm.js";
 import "../../styles/LoginModal.css";
@@ -28,7 +28,7 @@ export default class LoginModal extends Component {
 
     componentDidMount() {
         // console.log("LoginModal did mount");
-        console.log("this.DOMNode = ", this.mountedDOMNode);
+        // console.log("this.DOMNode = ", this.mountedDOMNode);
     }
 
     componentDidUpdate() {
@@ -54,38 +54,77 @@ export default class LoginModal extends Component {
     }
 
     handleESCKeyDown = event => {
-        // console.log("Key down on modal");
         event.stopPropagation();
         if (event.keyCode === ESC_KEY) {
             this.props.closeModal();
         }
     };
 
-    handleClickCoverLayer = event => {
-        // console.log("click cover layer");
-        event.stopPropagation();
-        // if (event.target.getAttribute("data-iscoverlayer"))
-        this.props.closeModal();
-    };
-
-    handleClickCloseButton = event => {
-        // console.log("Click close button");
-        event.preventDefault();
-        event.stopPropagation();
-        // if (event.target.classList.contains("js-close"))
-        this.props.closeModal();
-    };
-
     render() {
+        const {
+            isModalOpen,
+            formToOpen,
+            closeModal,
+            openModalWithForm
+        } = this.props;
+
+        const signinForm = (
+            <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
+                <SigninForm />
+                {/* bottom message as reset form entry */}
+                <p className="cd-signin-modal__bottom-message">
+                    <a
+                        href="#0"
+                        onClick={openModalWithForm(LOGINMODAL_FORM_RESET)}
+                    >
+                        Forgot your password?
+                    </a>
+                </p>
+            </div>
+        );
+
+        const signupForm = (
+            <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
+                <SignupForm />
+            </div>
+        );
+
+        const resetForm = (
+            <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
+                <p className="cd-signin-modal__message">
+                    {/* Original message: Lost your password? Please enter your email address.
+                You will receive a link to create a new password. */}
+                    Lost your password? Please enter your email address. Your
+                    account will be reset.
+                </p>
+                <ResetForm />
+                <p className="cd-signin-modal__bottom-message">
+                    <a
+                        href="#0"
+                        onClick={openModalWithForm(LOGINMODAL_FORM_SIGNIN)}
+                    >
+                        Back to log-in
+                    </a>
+                </p>
+            </div>
+        );
+
+        // select which form to render, default signin form
+        let formToRender = signinForm;
+        if (isModalOpen) {
+            if (formToOpen === LOGINMODAL_FORM_SIGNUP)
+                formToRender = signupForm;
+            else if (formToOpen === LOGINMODAL_FORM_RESET)
+                formToRender = resetForm;
+        }
+
         return ReactDOM.createPortal(
             <div
                 onKeyDown={this.handleESCKeyDown}
                 tabIndex="-1"
                 ref={node => (this.mountedDOMNode = node)}
                 className={
-                    // deleted class js-signin-modal,
-                    // which is used to distinguish between cover layer and form
-                    this.props.isModalOpen
+                    isModalOpen
                         ? "cd-signin-modal cd-signin-modal--is-visible"
                         : "cd-signin-modal"
                 }
@@ -94,7 +133,7 @@ export default class LoginModal extends Component {
                 <div
                     data-iscoverlayer="true"
                     className="login-modal-cover-layer"
-                    onClick={this.handleClickCoverLayer}
+                    onClick={closeModal}
                 />
 
                 {/* Forms Container */}
@@ -104,14 +143,11 @@ export default class LoginModal extends Component {
                         <li>
                             <a
                                 href="#0"
-                                data-form={LOGINMODAL_FORM_SIGNIN}
-                                onClick={this.props.openModalWithForm}
-                                data-type="login"
+                                onClick={openModalWithForm(
+                                    LOGINMODAL_FORM_SIGNIN
+                                )}
                                 className={
-                                    this.props.formToOpen ===
-                                        LOGINMODAL_FORM_SIGNIN ||
-                                    this.props.formToOpen ===
-                                        LOGINMODAL_FORM_RESET
+                                    formToOpen !== LOGINMODAL_FORM_SIGNUP
                                         ? "cd-selected"
                                         : ""
                                 }
@@ -122,12 +158,11 @@ export default class LoginModal extends Component {
                         <li>
                             <a
                                 href="#0"
-                                data-form={LOGINMODAL_FORM_SIGNUP}
-                                onClick={this.props.openModalWithForm}
-                                data-type="signup"
-                                className={
-                                    this.props.formToOpen ===
+                                onClick={openModalWithForm(
                                     LOGINMODAL_FORM_SIGNUP
+                                )}
+                                className={
+                                    formToOpen === LOGINMODAL_FORM_SIGNUP
                                         ? "cd-selected"
                                         : ""
                                 }
@@ -137,73 +172,12 @@ export default class LoginModal extends Component {
                         </li>
                     </ul>
 
-                    {/* Login Form */}
-                    <div
-                        data-type="login"
-                        className={
-                            // deleted class: js-signin-modal-block
-                            this.props.formToOpen === LOGINMODAL_FORM_SIGNIN
-                                ? "cd-signin-modal__block cd-signin-modal__block--is-selected"
-                                : "cd-signin-modal__block"
-                        }
-                    >
-                        <LoginForm />
-                        {/* reset password entry, just delete account */}
-                        <p className="cd-signin-modal__bottom-message">
-                            <a
-                                href="#0"
-                                data-form={LOGINMODAL_FORM_RESET}
-                                onClick={this.props.openModalWithForm}
-                            >
-                                Forgot your password?
-                            </a>
-                        </p>
-                    </div>
+                    {formToRender}
 
-                    {/* Signup Form */}
-                    <div
-                        data-type="signup"
-                        className={
-                            // deleted class: js-signin-modal-block
-                            this.props.formToOpen === LOGINMODAL_FORM_SIGNUP
-                                ? "cd-signin-modal__block cd-signin-modal__block--is-selected"
-                                : "cd-signin-modal__block"
-                        }
-                    >
-                        <SignupForm />
-                    </div>
-
-                    {/* reset password form, just delete account */}
-                    <div
-                        className={
-                            // deleted class: js-signin-modal-block
-                            this.props.formToOpen === LOGINMODAL_FORM_RESET
-                                ? "cd-signin-modal__block cd-signin-modal__block--is-selected"
-                                : "cd-signin-modal__block"
-                        }
-                        data-type="reset"
-                    >
-                        <p className="cd-signin-modal__message">
-                            {/* Original message: Lost your password? Please enter your email address.
-                            You will receive a link to create a new password. */}
-                            Lost your password? Please enter your email address.
-                            Your account will be reset.
-                        </p>
-                        <ResetForm />
-                        <p className="cd-signin-modal__bottom-message">
-                            <a
-                                href="#0"
-                                data-form={LOGINMODAL_FORM_SIGNIN}
-                                onClick={this.props.openModalWithForm}
-                            >
-                                Back to log-in
-                            </a>
-                        </p>
-                    </div>
                     <a
                         href="#0"
                         className="cd-signin-modal__close"
-                        onClick={this.handleClickCloseButton}
+                        onClick={closeModal}
                     >
                         Close
                     </a>

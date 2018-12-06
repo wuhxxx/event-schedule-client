@@ -5,7 +5,7 @@ import { EMAIL, PASSWORD } from "../../constants.js";
 
 import "../../styles/UserForm.css";
 
-export default class LoginForm extends Component {
+export default class SigninForm extends Component {
     state = {
         isPasswordHidden: true,
         [EMAIL]: {
@@ -49,7 +49,7 @@ export default class LoginForm extends Component {
     );
 
     handleSubmit = event => {
-        console.log("log in form", event.target.value);
+        console.log("signin form", event.target.value);
         event.preventDefault();
     };
 
