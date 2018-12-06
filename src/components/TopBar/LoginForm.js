@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-import classTogglerBuilder from "../tools/classTogglerBuilder.js";
-import { userFormInputValidators } from "../tools/validators.js";
-import { USERNAME, EMAIL, PASSWORD } from "../constants.js";
+import classTogglerBuilder from "../../tools/classTogglerBuilder.js";
+import { userFormInputValidators } from "../../tools/validators.js";
+import { EMAIL, PASSWORD } from "../../constants.js";
 
-import "../styles/UserForm.css";
+import "../../styles/UserForm.css";
 
-export default class SignupForm extends Component {
+export default class LoginForm extends Component {
     state = {
         isPasswordHidden: true,
-        [USERNAME]: {
-            value: "",
-            hasError: false
-        },
         [EMAIL]: {
             value: "",
             hasError: false
@@ -53,7 +49,7 @@ export default class SignupForm extends Component {
     );
 
     handleSubmit = event => {
-        console.log("sign up form", event.target.value);
+        console.log("log in form", event.target.value);
         event.preventDefault();
     };
 
@@ -65,39 +61,13 @@ export default class SignupForm extends Component {
             >
                 <p className="cd-signin-modal__fieldset">
                     <label
-                        className="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace"
-                        htmlFor="signup-username"
-                    >
-                        Username
-                    </label>
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        name={USERNAME}
-                        value={this.state[USERNAME].value}
-                        onChange={this.handleInputValueChange}
-                        className={this.toggleInputClassBy(
-                            this.state[USERNAME].hasError
-                        )}
-                    />
-                    <span
-                        className={this.toggleSpanClassBy(
-                            this.state[USERNAME].hasError
-                        )}
-                    >
-                        {this.state[USERNAME].hasError}
-                    </span>
-                </p>
-
-                <p className="cd-signin-modal__fieldset">
-                    <label
                         className="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
-                        htmlFor="signup-email"
+                        htmlFor="signin-email"
                     >
                         E-mail
                     </label>
                     <input
-                        id="signup-email"
+                        id="signin-email"
                         type="email"
                         placeholder="E-mail"
                         name={EMAIL}
@@ -119,12 +89,12 @@ export default class SignupForm extends Component {
                 <p className="cd-signin-modal__fieldset">
                     <label
                         className="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace"
-                        htmlFor="signup-password"
+                        htmlFor="signin-password"
                     >
                         Password
                     </label>
                     <input
-                        id="signup-password"
+                        id="signin-password"
                         placeholder="Password"
                         name={PASSWORD}
                         value={this.state[PASSWORD].value}
@@ -153,19 +123,20 @@ export default class SignupForm extends Component {
                 <p className="cd-signin-modal__fieldset">
                     <input
                         type="checkbox"
-                        id="accept-terms"
+                        id="remember-me"
                         className="cd-signin-modal__input"
+                        ref={ele => (this.checkBox = ele)}
                     />
-                    <label htmlFor="accept-terms" className="checkBox-label">
-                        I agree to the <a href="#0">Terms</a>
+                    <label htmlFor="remember-me" className="checkBox-label">
+                        Remember me
                     </label>
                 </p>
 
                 <p className="cd-signin-modal__fieldset">
                     <input
-                        className="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding"
+                        className="cd-signin-modal__input cd-signin-modal__input--full-width"
                         type="submit"
-                        value="Create account"
+                        value="Login"
                     />
                 </p>
             </form>

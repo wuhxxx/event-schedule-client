@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../constants.js";
+import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../../constants.js";
 import Timeline from "./Timeline.js";
 import EventsWrapper from "./EventsWrapper.js";
 
-import "../styles/Schedule.css";
+import "../../styles/Schedule.css";
 
 export default class Schedule extends Component {
     constructor(props) {

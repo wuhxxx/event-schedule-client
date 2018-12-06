@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import classTogglerBuilder from "../tools/classTogglerBuilder.js";
-import { userFormInputValidators } from "../tools/validators.js";
-import { EMAIL } from "../constants.js";
+import classTogglerBuilder from "../../tools/classTogglerBuilder.js";
+import { userFormInputValidators } from "../../tools/validators.js";
+import { EMAIL } from "../../constants.js";
 
-import "../styles/UserForm.css";
+import "../../styles/UserForm.css";
 
 export default class ResetForm extends Component {
     state = {
@@ -70,7 +70,7 @@ export default class ResetForm extends Component {
                             this.state[EMAIL].hasError
                         )}
                     >
-                        Error message here!
+                        {this.state[EMAIL].hasError}
                     </span>
                 </p>
 

@@ -5,11 +5,11 @@ import {
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_RESET,
     LOGINMODAL_FORM_SIGNUP
-} from "../constants.js";
+} from "../../constants.js";
 import LoginForm from "./LoginForm.js";
 import SignupForm from "./SignupForm.js";
 import ResetForm from "./ResetForm.js";
-import "../styles/LoginModal.css";
+import "../../styles/LoginModal.css";
 
 // login modal root in index.html
 const loginModalRoot = document.getElementById("login-modal-root");
@@ -27,12 +27,12 @@ export default class LoginModal extends Component {
     };
 
     componentDidMount() {
-        console.log("LoginModal did mount");
+        // console.log("LoginModal did mount");
         console.log("this.DOMNode = ", this.mountedDOMNode);
     }
 
     componentDidUpdate() {
-        console.log("LoginModal did update");
+        // console.log("LoginModal did update");
         // todo: get rid of setTimeout()
         if (this.props.isModalOpen) {
             console.log("before execute focus");
@@ -54,7 +54,7 @@ export default class LoginModal extends Component {
     }
 
     handleESCKeyDown = event => {
-        console.log("Key down on modal");
+        // console.log("Key down on modal");
         event.stopPropagation();
         if (event.keyCode === ESC_KEY) {
             this.props.closeModal();
@@ -62,14 +62,14 @@ export default class LoginModal extends Component {
     };
 
     handleClickCoverLayer = event => {
-        console.log("click cover layer");
+        // console.log("click cover layer");
         event.stopPropagation();
         // if (event.target.getAttribute("data-iscoverlayer"))
         this.props.closeModal();
     };
 
     handleClickCloseButton = event => {
-        console.log("Click close button");
+        // console.log("Click close button");
         event.preventDefault();
         event.stopPropagation();
         // if (event.target.classList.contains("js-close"))

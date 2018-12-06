@@ -4,10 +4,10 @@ import {
     LOGINMODAL_FORM_ATTRIBUTE_NAME,
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_SIGNUP
-} from "../constants.js";
+} from "../../constants.js";
 
-import logo from "../assets/images/cd-logo.svg";
-import "../styles/TopBar.css";
+import logo from "../../assets/images/cd-logo.svg";
+import "../../styles/TopBar.css";
 
 export default class TopBar extends Component {
     state = {
@@ -32,17 +32,17 @@ export default class TopBar extends Component {
     };
 
     componentDidMount() {
-        console.log("TopBar did mount");
-        console.log("TopBar, this.modalRef = ", this.modalRef);
+        // console.log("TopBar did mount");
+        // console.log("TopBar, this.modalRef = ", this.modalRef);
     }
 
     componentDidUpdate() {
-        console.log("TopBar did update");
+        // console.log("TopBar did update");
     }
 
     // open modal with specific form
     openModalWithForm = event => {
-        console.log("Open modal");
+        // console.log("Open modal");
         event.preventDefault();
         event.stopPropagation();
         const formToOpen = event.target.getAttribute(
@@ -54,7 +54,7 @@ export default class TopBar extends Component {
     };
 
     closeModal = () => {
-        console.log("Close modal");
+        // console.log("Close modal");
         this.setState({ isModalOpen: false });
     };
 
@@ -118,7 +118,7 @@ export default class TopBar extends Component {
                     formToOpen={this.state.formToOpen}
                     closeModal={this.closeModal}
                     openModalWithForm={this.openModalWithForm}
-                    ref={modalRef => (this.modalRef = modalRef)}
+                    // ref={modalRef => (this.modalRef = modalRef)}
                 />
             </div>
         );

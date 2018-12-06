@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EventsGroup from "./EventsGroup.js";
 import PropTypes from "prop-types";
-import "../styles/EventsWrapper.css";
+import "../../styles/EventsWrapper.css";
 
 export default class EventsWrapper extends Component {
     // prop types

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Responsive from "react-responsive";
-import "../styles/EventsGroup.css";
+import "../../styles/EventsGroup.css";
 
 const Tablet = props => <Responsive {...props} minWidth={800} />;
 const Mobile = props => <Responsive {...props} maxWidth={799} />;
