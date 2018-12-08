@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import LoginModal from "./LoginModal.js";
 import {
+    LOGINMODAL_FORM_RESET,
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_SIGNUP
 } from "../../constants.js";
@@ -8,7 +10,7 @@ import {
 import logo from "../../assets/images/cd-logo.svg";
 import "../../styles/TopBar.css";
 
-export default class TopBar extends Component {
+class TopBar extends Component {
     state = {
         isNavListVisible: false,
         isModalOpen: false,
@@ -31,26 +33,32 @@ export default class TopBar extends Component {
     };
 
     componentDidMount() {
-        // console.log("TopBar did mount");
+        console.log("TopBar did mount");
         // console.log("TopBar, this.modalRef = ", this.modalRef);
     }
 
     componentDidUpdate() {
-        // console.log("TopBar did update");
+        console.log("TopBar did update");
     }
 
     // open modal with specific form
     openModalWithForm = formToOpen => event => {
-        event.preventDefault();
-        event.stopPropagation();
-        // const formToOpen = event.target.getAttribute(
-        //     LOGINMODAL_FORM_ATTRIBUTE_NAME
-        // );
-        if (formToOpen) this.setState({ isModalOpen: true, formToOpen });
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        // make sure formToOpen is one of three defined forms
+        if (
+            formToOpen === LOGINMODAL_FORM_RESET ||
+            formToOpen === LOGINMODAL_FORM_SIGNIN ||
+            formToOpen === LOGINMODAL_FORM_SIGNUP
+        )
+            this.setState({ isModalOpen: true, formToOpen });
         else return;
     };
 
-    closeModal = () => {
+    closeModal = event => {
+        if (event) event.preventDefault();
         this.setState({ isModalOpen: false });
     };
 
@@ -116,3 +124,9 @@ export default class TopBar extends Component {
         );
     }
 }
+
+TopBar.propTypes = {
+    isUserLoggedIn: PropTypes.bool
+};
+
+export default TopBar;

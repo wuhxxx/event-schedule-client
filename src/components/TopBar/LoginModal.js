@@ -27,17 +27,17 @@ export default class LoginModal extends Component {
     };
 
     componentDidMount() {
-        // console.log("LoginModal did mount");
+        console.log("LoginModal did mount");
         // console.log("this.DOMNode = ", this.mountedDOMNode);
     }
 
     componentDidUpdate() {
-        // console.log("LoginModal did update");
+        console.log("LoginModal did update");
         // todo: get rid of setTimeout()
         if (this.props.isModalOpen) {
-            console.log("before execute focus");
-            console.log(document.activeElement);
-            console.log("modal dom node:", this.mountedDOMNode);
+            // console.log("before execute focus");
+            // console.log(document.activeElement);
+            // console.log("modal dom node:", this.mountedDOMNode);
             // ReactDOM.findDOMNode(this).focus();
             // this.mountedDOMNode.focus();
             // console.log("after execute focus");
@@ -45,8 +45,8 @@ export default class LoginModal extends Component {
             setTimeout(() => {
                 // ReactDOM.findDOMNode(this).focus();
                 this.mountedDOMNode.focus();
-                console.log("after execute focus");
-                console.log(document.activeElement);
+                // console.log("after execute focus");
+                // console.log(document.activeElement);
             }, 30);
             // if timeout is 10, focus won't work
             // timeout 11 ~ 20, sometimes works
@@ -69,54 +69,30 @@ export default class LoginModal extends Component {
         } = this.props;
 
         const signinForm = (
-            <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
-                <SigninForm />
-                {/* bottom message as reset form entry */}
-                <p className="cd-signin-modal__bottom-message">
-                    <a
-                        href="#0"
-                        onClick={openModalWithForm(LOGINMODAL_FORM_RESET)}
-                    >
-                        Forgot your password?
-                    </a>
-                </p>
-            </div>
+            <SigninForm
+                openModalWithForm={openModalWithForm}
+                closeModal={closeModal}
+            />
         );
 
         const signupForm = (
-            <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
-                <SignupForm />
-            </div>
+            <SignupForm
+                openModalWithForm={openModalWithForm}
+                closeModal={closeModal}
+            />
         );
 
         const resetForm = (
-            <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
-                <p className="cd-signin-modal__message">
-                    {/* Original message: Lost your password? Please enter your email address.
-                You will receive a link to create a new password. */}
-                    Lost your password? Please enter your email address. Your
-                    account will be reset.
-                </p>
-                <ResetForm />
-                <p className="cd-signin-modal__bottom-message">
-                    <a
-                        href="#0"
-                        onClick={openModalWithForm(LOGINMODAL_FORM_SIGNIN)}
-                    >
-                        Back to log-in
-                    </a>
-                </p>
-            </div>
+            <ResetForm
+                openModalWithForm={openModalWithForm}
+                closeModal={closeModal}
+            />
         );
 
         // select which form to render, default signin form
         let formToRender = signinForm;
-        if (isModalOpen) {
-            if (formToOpen === LOGINMODAL_FORM_SIGNUP)
-                formToRender = signupForm;
-            else if (formToOpen === LOGINMODAL_FORM_RESET)
-                formToRender = resetForm;
-        }
+        if (formToOpen === LOGINMODAL_FORM_SIGNUP) formToRender = signupForm;
+        else if (formToOpen === LOGINMODAL_FORM_RESET) formToRender = resetForm;
 
         return ReactDOM.createPortal(
             <div
