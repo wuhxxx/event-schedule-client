@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { toast } from "react-toastify";
-import classTogglerBuilder from "../../tools/classTogglerBuilder.js";
-import { userFormInputValidators } from "../../tools/validators.js";
+import classTogglerBuilder from "../../utils/classTogglerBuilder.js";
+import { userFormInputValidators } from "../../utils/validators.js";
 import {
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_SIGNUP,
@@ -68,7 +68,7 @@ export default class ResetForm extends Component {
             .delete(`${USER_API_ROUTE}`, { data: { email: emailInput } })
             .then(res => {
                 console.log(res);
-                toast.info("☠️ Account deleted!");
+                toast.warn("☠️ Account deleted!");
                 this.props.openModalWithForm(LOGINMODAL_FORM_SIGNUP)();
             })
             .catch(err => {

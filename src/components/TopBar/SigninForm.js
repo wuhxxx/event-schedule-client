@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { toast } from "react-toastify";
-import classTogglerBuilder from "../../tools/classTogglerBuilder.js";
-import { userFormInputValidators } from "../../tools/validators.js";
+import classTogglerBuilder from "../../utils/classTogglerBuilder.js";
+import { userFormInputValidators } from "../../utils/validators.js";
 import {
     LOGINMODAL_FORM_RESET,
     EMAIL,
@@ -87,7 +87,7 @@ export default class SigninForm extends Component {
                 // console.log(res);
                 console.log(res.data.data);
                 // dispatch login action
-                toast.info("😀 You are logged in!");
+                toast.info("🎉 You are logged in!");
                 this.props.closeModal();
             })
             .catch(err => {

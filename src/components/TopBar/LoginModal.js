@@ -47,7 +47,7 @@ export default class LoginModal extends Component {
                 this.mountedDOMNode.focus();
                 // console.log("after execute focus");
                 // console.log(document.activeElement);
-            }, 30);
+            }, 500);
             // if timeout is 10, focus won't work
             // timeout 11 ~ 20, sometimes works
         }

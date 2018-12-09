@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { toast } from "react-toastify";
-import classTogglerBuilder from "../../tools/classTogglerBuilder.js";
-import { userFormInputValidators } from "../../tools/validators.js";
+import classTogglerBuilder from "../../utils/classTogglerBuilder.js";
+import { userFormInputValidators } from "../../utils/validators.js";
+import { connect } from "react-redux";
+import { signUserIn } from "../../actions/userActions.js";
 import {
     USERNAME,
     EMAIL,
@@ -20,10 +22,11 @@ const terms =
 const termsCloseDelayOnHover = 200;
 const termsNoticeCloseDelay = 1000;
 
-export default class SignupForm extends Component {
+class SignupForm extends Component {
     static propTypes = {
         closeModal: PropTypes.func,
-        openModalWithForm: PropTypes.func
+        openModalWithForm: PropTypes.func,
+        dispatch: PropTypes.func
     };
 
     state = {
@@ -109,9 +112,9 @@ export default class SignupForm extends Component {
             .then(res => {
                 // console.log(res);
                 console.log(res.data.data);
-                // dispatch login action
-                toast.info("😀 You are logged in!");
-                this.props.closeModal();
+                toast.info("🎉 You are logged in!");
+                // dispatch signin action, and remember user
+                this.props.dispatch(signUserIn(res.data.data, true));
             })
             .catch(err => {
                 if (err.response) {
@@ -285,3 +288,5 @@ export default class SignupForm extends Component {
         );
     }
 }
+
+export default connect()(SignupForm);

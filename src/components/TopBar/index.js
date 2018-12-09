@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import LoginModal from "./LoginModal.js";
 import {
     LOGINMODAL_FORM_RESET,
@@ -11,6 +12,12 @@ import logo from "../../assets/images/cd-logo.svg";
 import "../../styles/TopBar.css";
 
 class TopBar extends Component {
+    static propTypes = {
+        isUserLoggedIn: PropTypes.bool,
+        username: PropTypes.string,
+        authToken: PropTypes.string
+    };
+
     state = {
         isNavListVisible: false,
         isModalOpen: false,
@@ -34,12 +41,21 @@ class TopBar extends Component {
 
     componentDidMount() {
         console.log("TopBar did mount");
+        console.dir(this.state);
         // console.log("TopBar, this.modalRef = ", this.modalRef);
     }
 
     componentDidUpdate() {
         console.log("TopBar did update");
     }
+
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     console.log("TopBar did receive new props");
+    // set axios auth token
+    // return new state according to new props or null, merge to state
+    //     const { isUserLoggedIn, username, token } = nextProps;
+    //     return { isUserLoggedIn, username, token };
+    // }
 
     // open modal with specific form
     openModalWithForm = formToOpen => event => {
@@ -125,8 +141,12 @@ class TopBar extends Component {
     }
 }
 
-TopBar.propTypes = {
-    isUserLoggedIn: PropTypes.bool
+const mapStateToProps = state => {
+    return {
+        isUserLoggedIn: state.user.isUserLoggedIn,
+        username: state.user.username,
+        authToken: state.user.authToken
+    };
 };
 
-export default TopBar;
+export default connect(mapStateToProps)(TopBar);

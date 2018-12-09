@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import toTimeString from "../../tools/toTimeString.js";
+import toTimeString from "../../utils/toTimeString.js";
 import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../../constants.js";
 import "../../styles/Timeline.css";
 
