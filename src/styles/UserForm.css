@@ -216,6 +216,51 @@ a {
     transition: opacity 0.2s 0s, visibility 0s 0s;
 }
 
+.signup-form-terms {
+    color: #2f889a;
+    cursor: pointer;
+}
+
+.signup-form-terms-detail {
+    display: inline-block;
+    position: absolute;
+    width: 200px;
+    left: 33px;
+    bottom: 25px;
+    background: rgba(47, 136, 154, 0.7);
+    padding: 0.8em;
+    z-index: 2;
+    color: #fff;
+    font-size: 1.5rem;
+    border-radius: 0.25em;
+    /* prevent click and touch events */
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 0.4s 0s, visibility 0s 0.4s;
+    transition: opacity 0.4s 0s, visibility 0s 0.4s;
+}
+
+.signup-form-terms-detail::after {
+    /* triangle */
+    content: "";
+    position: absolute;
+    left: 87px;
+    bottom: -8px;
+    height: 0;
+    width: 0;
+    border-top: 8px solid rgba(47, 136, 154, 0.7);
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+}
+
+.signup-form-terms-detail.signup-form-terms-detail--is-visible {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.4s 0s, visibility 0s 0s;
+    transition: opacity 0.4s 0s, visibility 0s 0s;
+}
+
 @media only screen and (min-width: 600px) {
     .cd-signin-modal__form {
         padding: 2em;

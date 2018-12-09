@@ -14,6 +14,12 @@ import {
 
 import "../../styles/UserForm.css";
 
+const terms =
+    "Terms: Your data won't be permanently preserved in the database since this is a demo website, the database periodically cleans up each week. You may want to signup again after that.";
+
+const termsCloseDelayOnHover = 200;
+const termsNoticeCloseDelay = 1000;
+
 export default class SignupForm extends Component {
     static propTypes = {
         closeModal: PropTypes.func,
@@ -22,6 +28,7 @@ export default class SignupForm extends Component {
 
     state = {
         isPasswordHidden: true,
+        isTermsShown: false,
         [USERNAME]: {
             value: "",
             hasError: false
@@ -67,6 +74,11 @@ export default class SignupForm extends Component {
         "cd-signin-modal__error--is-visible"
     );
 
+    toggleTermsDetailsClassBy = classTogglerBuilder(
+        "signup-form-terms-detail",
+        "signup-form-terms-detail--is-visible"
+    );
+
     handleSubmit = event => {
         event.preventDefault();
         // check if required field is empty
@@ -81,6 +93,13 @@ export default class SignupForm extends Component {
                 });
             }
             newUser[fields[i]] = input;
+        }
+        // check box
+        if (!this.checkBox.checked) {
+            this.setState({ isTermsShown: true });
+            return setTimeout(() => {
+                this.setState({ isTermsShown: false });
+            }, termsNoticeCloseDelay);
         }
         // set state to indicate waiting api response
         this.setState({ isWaitingApi: true });
@@ -102,7 +121,8 @@ export default class SignupForm extends Component {
                         this.setState({
                             [EMAIL]: {
                                 value: newUser[EMAIL],
-                                hasError: "This email has been registered"
+                                hasError:
+                                    "This email has been registered, use a different email address"
                             }
                         });
                     }
@@ -218,13 +238,35 @@ export default class SignupForm extends Component {
                             type="checkbox"
                             id="accept-terms"
                             className="cd-signin-modal__input"
+                            ref={ele => (this.checkBox = ele)}
                         />
                         <label
                             htmlFor="accept-terms"
                             className="checkBox-label"
+                            ref={ele => (this.lable = ele)}
                         >
-                            I agree to the <a href="#0">Terms</a>
+                            I agree to the{" "}
+                            <span
+                                className="signup-form-terms"
+                                onMouseOver={() => {
+                                    this.setState({ isTermsShown: true });
+                                }}
+                                onMouseOut={() => {
+                                    setTimeout(() => {
+                                        this.setState({ isTermsShown: false });
+                                    }, termsCloseDelayOnHover);
+                                }}
+                            >
+                                Terms
+                            </span>
                         </label>
+                        <span
+                            className={this.toggleTermsDetailsClassBy(
+                                this.state.isTermsShown
+                            )}
+                        >
+                            {terms}
+                        </span>
                     </p>
 
                     <p className="cd-signin-modal__fieldset">
