@@ -1,20 +1,7 @@
-/********************** Schedule related constants **********************/
-// unit of timeline, initially 30 minutes per timeline point
-export const TIME_UNIT = 30;
-// default timeline start time;
-export const DEFAULT_FROM = 9 * 2 * 30;
-// default timeline end time;
-export const DEFAULT_TO = 18 * 2 * 30;
-
-/********************** TopBar related constants **********************/
-// login modal states
-export const LOGINMODAL_FORM_SIGNIN = "Signin";
-export const LOGINMODAL_FORM_RESET = "Reset";
-export const LOGINMODAL_FORM_SIGNUP = "Signup";
-// login/signup form input field name
-export const USERNAME = "username";
-export const EMAIL = "email";
-export const PASSWORD = "password";
+/********************** storage related constants **********************/
+export const LOCAL_USERNAME_KEY = "USERNAME_KEY";
+export const LOCAL_AUTHTOKEN_KEY = "AUTHTOKEN_KEY";
+export const LOCAL_EXPIRESAT_KEY = "EXPIRESAT_KEY";
 
 /********************** API related constants **********************/
 // api route
@@ -37,6 +24,24 @@ export const USER_ERRORS = {
 };
 
 export const EVENT_ERRORS = { EventNotFound: "EventNotFound" };
+
+/********************** Schedule related constants **********************/
+// unit of timeline, initially 30 minutes per timeline point
+export const TIME_UNIT = 30;
+// default timeline start time;
+export const DEFAULT_FROM = 9 * 2 * 30;
+// default timeline end time;
+export const DEFAULT_TO = 18 * 2 * 30;
+
+/********************** TopBar related constants **********************/
+// login modal states
+export const LOGINMODAL_FORM_SIGNIN = "Signin";
+export const LOGINMODAL_FORM_RESET = "Reset";
+export const LOGINMODAL_FORM_SIGNUP = "Signup";
+// login/signup form input field name
+export const USERNAME = "username";
+export const EMAIL = "email";
+export const PASSWORD = "password";
 
 /********************** Toast related constants **********************/
 export const TOAST_AUTO_CLOSE = 3500; // unit: milesecond
