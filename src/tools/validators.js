@@ -24,7 +24,7 @@ export const validateUsername = username => {
     const reg = /^(?=.{2,12}$)(?![.\s])[a-zA-Z0-9._\s]+(?<![.\s])$/;
     return reg.test(username)
         ? false
-        : "2~12 long, no leading/ending space or .";
+        : "2~12 long alphabets and numbers, no leading/ending space or .";
 };
 
 /**
@@ -37,7 +37,7 @@ export const validatePassword = password => {
     const reg = /^[a-zA-Z0-9!@#$%^&]{4,30}$/;
     return reg.test(password)
         ? false
-        : "4~30 long, accepts digits, lower/upper case letters and symbols of !@#$%^&";
+        : "4~30 long alphabets, numbers and symbols of !@#$%^&";
 };
 
 // group up user form input validators , return different validator based on target name
