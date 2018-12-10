@@ -7,15 +7,18 @@ import {
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_SIGNUP
 } from "../../constants.js";
+import { logUserOut } from "../../actions/userActions.js";
+import { toast } from "react-toastify";
+import classTogglerBuilder from "../../utils/classTogglerBuilder.js";
 
 import logo from "../../assets/images/cd-logo.svg";
 import "../../styles/TopBar.css";
 
 class TopBar extends Component {
     static propTypes = {
+        dispatch: PropTypes.func,
         isUserLoggedIn: PropTypes.bool,
-        username: PropTypes.string,
-        authToken: PropTypes.string
+        username: PropTypes.string
     };
 
     state = {
@@ -41,21 +44,11 @@ class TopBar extends Component {
 
     componentDidMount() {
         console.log("TopBar did mount");
-        console.dir(this.state);
-        // console.log("TopBar, this.modalRef = ", this.modalRef);
     }
 
     componentDidUpdate() {
         console.log("TopBar did update");
     }
-
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     console.log("TopBar did receive new props");
-    // set axios auth token
-    // return new state according to new props or null, merge to state
-    //     const { isUserLoggedIn, username, token } = nextProps;
-    //     return { isUserLoggedIn, username, token };
-    // }
 
     // open modal with specific form
     openModalWithForm = formToOpen => event => {
@@ -78,51 +71,73 @@ class TopBar extends Component {
         this.setState({ isModalOpen: false });
     };
 
-    render() {
-        let navListClassSet = "cd-main-nav__list js-signin-modal-trigger";
-        if (this.state.isNavListVisible)
-            navListClassSet =
-                "cd-main-nav__list js-signin-modal-trigger cd-main-nav__list--is-visible";
+    logoutClickHandler = event => {
+        event.stopPropagation();
+        event.preventDefault();
+        toast.info("👋 See you~~");
+        this.props.dispatch(logUserOut());
+    };
 
+    toggleNavListClassBy = classTogglerBuilder(
+        "cd-main-nav__list",
+        "cd-main-nav__list--is-visible"
+    );
+
+    render() {
+        console.log(this.props.isUserLoggedIn);
+        let navListClass = this.toggleNavListClassBy(
+            this.state.isNavListVisible
+        );
         return (
             <div>
                 <header className="cd-main-header">
                     <div className="cd-main-header__logo">
                         <img src={logo} alt="Logo" />
                         <span className="header-title">Event Schedule</span>
-                        {/* <a
-                            className="header-githubLogo"
-                            href="https://github.com/wuhxxx/event-schedule-client"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img src={githubLogo} alt="githubLogo" />
-                        </a> */}
                     </div>
 
                     <nav className="cd-main-nav" onClick={this.navClickHandler}>
-                        <ul className={navListClassSet}>
+                        <ul className={navListClass}>
                             <li>
-                                <a
-                                    className="cd-main-nav__item cd-main-nav__item--signin"
-                                    href="#0"
-                                    onClick={this.openModalWithForm(
-                                        LOGINMODAL_FORM_SIGNIN
-                                    )}
-                                >
-                                    Sign in
-                                </a>
+                                {this.props.isUserLoggedIn ? (
+                                    <span
+                                        className="cd-main-nav__item top-bar-nav--welcome-msg"
+                                        href="#0"
+                                    >
+                                        {`Hi there, ${this.props.username}`}
+                                    </span>
+                                ) : (
+                                    <a
+                                        className="cd-main-nav__item cd-main-nav__item--signin"
+                                        href="#0"
+                                        onClick={this.openModalWithForm(
+                                            LOGINMODAL_FORM_SIGNIN
+                                        )}
+                                    >
+                                        Sign in
+                                    </a>
+                                )}
                             </li>
                             <li>
-                                <a
-                                    className="cd-main-nav__item cd-main-nav__item--signup"
-                                    href="#0"
-                                    onClick={this.openModalWithForm(
-                                        LOGINMODAL_FORM_SIGNUP
-                                    )}
-                                >
-                                    Sign up
-                                </a>
+                                {this.props.isUserLoggedIn ? (
+                                    <a
+                                        className="cd-main-nav__item top-bar-nav__item--logout"
+                                        href="#0"
+                                        onClick={this.logoutClickHandler}
+                                    >
+                                        Log out
+                                    </a>
+                                ) : (
+                                    <a
+                                        className="cd-main-nav__item cd-main-nav__item--signup"
+                                        href="#0"
+                                        onClick={this.openModalWithForm(
+                                            LOGINMODAL_FORM_SIGNUP
+                                        )}
+                                    >
+                                        Sign up
+                                    </a>
+                                )}
                             </li>
                         </ul>
                     </nav>
@@ -134,7 +149,6 @@ class TopBar extends Component {
                     formToOpen={this.state.formToOpen}
                     closeModal={this.closeModal}
                     openModalWithForm={this.openModalWithForm}
-                    // ref={modalRef => (this.modalRef = modalRef)}
                 />
             </div>
         );
@@ -144,8 +158,7 @@ class TopBar extends Component {
 const mapStateToProps = state => {
     return {
         isUserLoggedIn: state.user.isUserLoggedIn,
-        username: state.user.username,
-        authToken: state.user.authToken
+        username: state.user.username
     };
 };
 

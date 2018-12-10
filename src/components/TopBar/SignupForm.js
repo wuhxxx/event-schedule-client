@@ -113,7 +113,9 @@ class SignupForm extends Component {
                 // console.log(res);
                 console.log(res.data.data);
                 toast.info("🎉 You are logged in!");
-                // dispatch signin action, and remember user
+                this.setState({ isWaitingApi: false });
+                this.props.closeModal();
+                // dispatch signin action, remember user by default
                 this.props.dispatch(signUserIn(res.data.data, true));
             })
             .catch(err => {

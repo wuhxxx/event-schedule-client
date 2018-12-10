@@ -104,7 +104,7 @@ Login/Signup modal window - by CodyHouse.co
     line-height: 50px;
     padding-left: 5%;
     background: #292a34;
-    border-top: 1px solid #3b3d4b;
+    /* border-top: 1px solid #3b3d4b; */
     color: #fff;
 }
 
@@ -146,14 +146,25 @@ Login/Signup modal window - by CodyHouse.co
         background: transparent;
     }
     .cd-main-nav__item.cd-main-nav__item--signin,
-    .cd-main-nav__item.cd-main-nav__item--signup {
+    .cd-main-nav__item.cd-main-nav__item--signup,
+    .cd-main-nav__item.top-bar-nav--welcome-msg,
+    .cd-main-nav__item.top-bar-nav__item--logout {
         padding: 0.6em 1em;
-        border-radius: 50em;
     }
     .cd-main-nav__item.cd-main-nav__item--signin {
+        border-radius: 50em;
         border: 1px solid rgba(255, 255, 255, 0.6);
     }
     .cd-main-nav__item.cd-main-nav__item--signup {
+        border-radius: 50em;
         background: #2f889a;
+    }
+    .cd-main-nav__item.top-bar-nav--welcome-msg {
+        font-size: 1.15em;
+        /* border: 1px solid red; */
+    }
+    .cd-main-nav__item.top-bar-nav__item--logout {
+        border-radius: 50em;
+        border: 1px solid rgba(255, 255, 255, 0.6);
     }
 }

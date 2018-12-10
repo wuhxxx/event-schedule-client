@@ -23,6 +23,7 @@ export const signUserIn = (userData, toRememberUser) => {
     axios.defaults.headers.common["Authorization"] = authToken;
     // save to localStorage
     if (toRememberUser) {
+        console.log("store user info to localStorage");
         localStorage.setItem(LOCAL_USERNAME_KEY, username);
         localStorage.setItem(LOCAL_AUTHTOKEN_KEY, authToken);
         localStorage.setItem(LOCAL_EXPIRESAT_KEY, expiresAt);

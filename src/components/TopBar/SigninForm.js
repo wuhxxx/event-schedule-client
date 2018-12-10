@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { connect } from "react-redux";
+import { signUserIn } from "../../actions/userActions.js";
 import classTogglerBuilder from "../../utils/classTogglerBuilder.js";
 import { userFormInputValidators } from "../../utils/validators.js";
 import {
@@ -14,10 +16,11 @@ import {
 
 import "../../styles/UserForm.css";
 
-export default class SigninForm extends Component {
+class SigninForm extends Component {
     static propTypes = {
         closeModal: PropTypes.func,
-        openModalWithForm: PropTypes.func
+        openModalWithForm: PropTypes.func,
+        dispatch: PropTypes.func
     };
 
     state = {
@@ -86,9 +89,13 @@ export default class SigninForm extends Component {
             .then(res => {
                 // console.log(res);
                 console.log(res.data.data);
-                // dispatch login action
                 toast.info("🎉 You are logged in!");
+                this.setState({ isWaitingApi: false });
                 this.props.closeModal();
+                // dispatch signin action
+                this.props.dispatch(
+                    signUserIn(res.data.data, this.checkBox.checked)
+                );
             })
             .catch(err => {
                 if (err.response) {
@@ -230,3 +237,5 @@ export default class SigninForm extends Component {
         );
     }
 }
+
+export default connect()(SigninForm);

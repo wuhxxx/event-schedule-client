@@ -9,7 +9,7 @@ export default function(preState = initialState, action) {
         case USER_SIGN_IN:
             const { username, authToken, expiresAt } = action;
             return {
-                isLoggedIn: true,
+                isUserLoggedIn: true,
                 username,
                 authToken,
                 expiresAt

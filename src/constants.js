@@ -46,4 +46,4 @@ export const PASSWORD = "password";
 /********************** Toast related constants **********************/
 export const TOAST_AUTO_CLOSE = 3500; // unit: milesecond
 // position choose from ["top-left", "top-right", top-center", "bottom-left", "bottom-right", "bottom-center"]
-export const TOAST_POSITION = "top-right";
+export const TOAST_POSITION = "top-center";
