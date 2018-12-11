@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import { createStore, compose, applyMiddleware } from "redux";
-import { ToastContainer } from "react-toastify";
-import { TOAST_POSITION, TOAST_AUTO_CLOSE } from "../constants.js";
 import { Provider } from "react-redux";
 import reducer from "../reducers";
 import thunk from "redux-thunk";
+import { signUserIn } from "../actions/userActions.js";
+import { ToastContainer } from "react-toastify";
+import {
+    TOAST_POSITION,
+    TOAST_AUTO_CLOSE,
+    LOCAL_USERNAME_KEY,
+    LOCAL_TOKEN_KEY,
+    LOCAL_EXPIRESAT_KEY,
+    LEAST_AVAILABLE_TIME
+} from "../constants.js";
 import TopBar from "./TopBar";
 import Schedule from "./Schedule";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -21,11 +29,17 @@ const store = createStore(
     )
 );
 
+// check if token exists and valid at initialization
+const username = localStorage.getItem(LOCAL_USERNAME_KEY);
+const token = localStorage.getItem(LOCAL_TOKEN_KEY);
+const expiresAt = localStorage.getItem(LOCAL_EXPIRESAT_KEY);
+// token must be valid until this time, or user need to sign in again
+const validUntil = Date.now() + LEAST_AVAILABLE_TIME;
+if (username && token && expiresAt && expiresAt > validUntil) {
+    store.dispatch(signUserIn({ username, token }, false));
+}
+
 class App extends Component {
-    constructor(props) {
-        super(props);
-        // check if token exists or valid at initialization
-    }
     render() {
         return (
             <Provider store={store}>
