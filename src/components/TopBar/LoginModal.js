@@ -27,38 +27,24 @@ export default class LoginModal extends Component {
     };
 
     componentDidMount() {
-        console.log("LoginModal did mount");
-        // console.log("this.DOMNode = ", this.mountedDOMNode);
+        // add event listener for esc key down
+        document.addEventListener("keydown", event => {
+            event.stopPropagation();
+            if (event.keyCode === ESC_KEY) {
+                this.props.closeModal();
+            }
+        });
     }
 
-    componentDidUpdate() {
-        console.log("LoginModal did update");
-        // todo: get rid of setTimeout()
-        if (this.props.isModalOpen) {
-            // console.log("before execute focus");
-            // console.log(document.activeElement);
-            // console.log("modal dom node:", this.mountedDOMNode);
-            // ReactDOM.findDOMNode(this).focus();
-            // this.mountedDOMNode.focus();
-            // console.log("after execute focus");
-            // console.log(document.activeElement);
-            setTimeout(() => {
-                // ReactDOM.findDOMNode(this).focus();
-                this.mountedDOMNode.focus();
-                // console.log("after execute focus");
-                // console.log(document.activeElement);
-            }, 500);
-            // if timeout is 10, focus won't work
-            // timeout 11 ~ 20, sometimes works
-        }
+    componentWillUnmount() {
+        // remove event listener
+        document.removeEventListener("keydown", event => {
+            event.stopPropagation();
+            if (event.keyCode === ESC_KEY) {
+                this.props.closeModal();
+            }
+        });
     }
-
-    handleESCKeyDown = event => {
-        event.stopPropagation();
-        if (event.keyCode === ESC_KEY) {
-            this.props.closeModal();
-        }
-    };
 
     render() {
         const {
@@ -96,9 +82,6 @@ export default class LoginModal extends Component {
 
         return ReactDOM.createPortal(
             <div
-                onKeyDown={this.handleESCKeyDown}
-                tabIndex="-1"
-                ref={node => (this.mountedDOMNode = node)}
                 className={
                     isModalOpen
                         ? "cd-signin-modal cd-signin-modal--is-visible"
