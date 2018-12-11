@@ -7,12 +7,10 @@ const initialState = {
 export default function(preState = initialState, action) {
     switch (action.type) {
         case USER_SIGN_IN:
-            const { username, authToken, expiresAt } = action;
+            const { username } = action;
             return {
                 isUserLoggedIn: true,
-                username,
-                authToken,
-                expiresAt
+                username
             };
         case USER_LOG_OUT:
             return initialState;

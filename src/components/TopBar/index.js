@@ -74,7 +74,7 @@ class TopBar extends Component {
     logoutClickHandler = event => {
         event.stopPropagation();
         event.preventDefault();
-        toast.info("👋 See you~~");
+        toast.info("👋 See ya~");
         this.props.dispatch(logUserOut());
     };
 

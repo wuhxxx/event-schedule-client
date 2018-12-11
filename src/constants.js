@@ -1,6 +1,6 @@
-/********************** storage related constants **********************/
+/********************** local storage related constants **********************/
 export const LOCAL_USERNAME_KEY = "USERNAME_KEY";
-export const LOCAL_AUTHTOKEN_KEY = "AUTHTOKEN_KEY";
+export const LOCAL_TOKEN_KEY = "TOKEN_KEY";
 export const LOCAL_EXPIRESAT_KEY = "EXPIRESAT_KEY";
 
 /********************** API related constants **********************/
@@ -9,6 +9,8 @@ export const USER_API_ROUTE = "http://localhost:2333/api/v1/users";
 export const EVENT_API_ROUTE = "http://localhost:2333/api/v1/events";
 // Authentication header prefix
 export const AUTH_HEADER = "Bearer";
+// least token available time span required
+export const LEAST_AVAILABLE_TIME = 1000 * 60 * 60 * 4; // 4 hours
 // backend error responses
 export const AUTH_ERRORS = {
     Unauthorized: "Unauthorized",
