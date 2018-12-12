@@ -155,16 +155,24 @@ Login/Signup modal window - by CodyHouse.co
         border-radius: 50em;
         border: 1px solid rgba(255, 255, 255, 0.6);
     }
+    .cd-main-nav__item.cd-main-nav__item--signin:hover {
+        background-color: #414351;
+    }
     .cd-main-nav__item.cd-main-nav__item--signup {
         border-radius: 50em;
         background: #2f889a;
     }
+    .cd-main-nav__item.cd-main-nav__item--signup:hover {
+        background-color: #3291a4;
+    }
     .cd-main-nav__item.top-bar-nav--welcome-msg {
         font-size: 1.15em;
-        /* border: 1px solid red; */
     }
     .cd-main-nav__item.top-bar-nav__item--logout {
         border-radius: 50em;
         border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .cd-main-nav__item.top-bar-nav__item--logout:hover {
+        background-color: #414351;
     }
 }
