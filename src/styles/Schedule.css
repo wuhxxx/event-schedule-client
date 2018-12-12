@@ -37,6 +37,15 @@ Main Components
     }
 }
 
+.progress-container {
+    margin: 3em auto;
+    width: fit-content;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+/* !-------------------------------- */
+
 .cd-schedule .events .single-event {
     /* force them to stay on one line */
     -ms-flex-negative: 0;
