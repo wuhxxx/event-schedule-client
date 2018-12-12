@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import EventsGroup from "./EventsGroup.js";
 import PropTypes from "prop-types";
+import { WEEK_DAYS } from "../../constants";
+
 import "../../styles/EventsWrapper.css";
 
 export default class EventsWrapper extends Component {
@@ -11,16 +13,15 @@ export default class EventsWrapper extends Component {
 
     constructor(props) {
         super(props);
-        this.weekday = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     }
 
     generateEventsGroups = () => {
         const eventsGroupArr = [];
 
-        for (let i = 0; i < this.weekday.length; i++) {
+        for (let i = 0; i < WEEK_DAYS.length; i++) {
             eventsGroupArr.push(
                 <EventsGroup
-                    weekday={this.weekday[i]}
+                    weekday={WEEK_DAYS[i]}
                     eventsGroupUlHeight={this.props.eventsGroupUlHeight}
                     key={i}
                 />

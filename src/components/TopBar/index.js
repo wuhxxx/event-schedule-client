@@ -6,7 +6,7 @@ import {
     LOGINMODAL_FORM_RESET,
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_SIGNUP
-} from "../../constants.js";
+} from "../../constants";
 import { logUserOut } from "../../actions/userActions.js";
 import { toast } from "react-toastify";
 import classTogglerBuilder from "../../utils/classTogglerBuilder.js";

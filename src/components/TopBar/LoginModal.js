@@ -5,7 +5,7 @@ import {
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_RESET,
     LOGINMODAL_FORM_SIGNUP
-} from "../../constants.js";
+} from "../../constants";
 import SigninForm from "./SigninForm.js";
 import SignupForm from "./SignupForm.js";
 import ResetForm from "./ResetForm.js";

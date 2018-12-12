@@ -1,4 +1,4 @@
-import { USERNAME, EMAIL, PASSWORD } from "../constants.js";
+import { USERNAME, EMAIL, PASSWORD } from "../constants";
 
 // functions to validate various form inputs
 

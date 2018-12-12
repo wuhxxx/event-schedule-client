@@ -12,7 +12,7 @@ import {
     PASSWORD,
     USER_API_ROUTE,
     USER_ERRORS
-} from "../../constants.js";
+} from "../../constants";
 
 import "../../styles/UserForm.css";
 

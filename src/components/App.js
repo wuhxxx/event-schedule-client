@@ -4,15 +4,13 @@ import { Provider } from "react-redux";
 import reducer from "../reducers";
 import thunk from "redux-thunk";
 import { signUserIn } from "../actions/userActions.js";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import {
-    TOAST_POSITION,
-    TOAST_AUTO_CLOSE,
     LOCAL_USERNAME_KEY,
     LOCAL_TOKEN_KEY,
     LOCAL_EXPIRESAT_KEY,
     LEAST_AVAILABLE_TIME
-} from "../constants.js";
+} from "../constants";
 import TopBar from "./TopBar";
 import Schedule from "./Schedule";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -47,8 +45,8 @@ class App extends Component {
                     <TopBar />
                     <Schedule />
                     <ToastContainer
-                        position={TOAST_POSITION}
-                        autoClose={TOAST_AUTO_CLOSE}
+                        position={toast.POSITION.TOP_CENTER}
+                        autoClose={3500}
                         hideProgressBar={false}
                         newestOnTop={false}
                         closeOnClick

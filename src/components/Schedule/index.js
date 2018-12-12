@@ -1,23 +1,35 @@
 import React, { Component } from "react";
-import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../../constants.js";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../../constants";
 import Timeline from "./Timeline.js";
 import EventsWrapper from "./EventsWrapper.js";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import "../../styles/Schedule.css";
 
-export default class Schedule extends Component {
+class Schedule extends Component {
+    static propTypes = {
+        isUserLoggedIn: PropTypes.bool
+    };
+
+    // todo: handle token expired
     constructor(props) {
         super(props);
         this.state = {
             timelineFrom: this.trimFrom(540),
-            timelineTo: this.trimTo(18 * 60)
+            timelineTo: this.trimTo(18 * 60),
+            isLoadingEvents: false
         };
     }
 
     componentDidMount() {
         // setTimeout(() => {
-        //     this.setState({ timelineFrom: 9 * 60, timelineTo: 18 * 60 });
-        // }, 5000);
+        //     this.setState({ isLoadingEvents: true });
+        // }, 3000);
+        // setTimeout(() => {
+        //     this.setState({ isLoadingEvents: false });
+        // }, 6000);
     }
 
     // trim and return timeline's start time
@@ -38,23 +50,38 @@ export default class Schedule extends Component {
     };
 
     // compute Timeline's ul tag css height and return the corresponding css height for EventsGroup's events ul tag css height
-    geteventsGroupUlHeight = () => {
+    getEventsGroupUlHeight = () => {
         const to = this.state.timelineTo;
         const from = this.state.timelineFrom;
         return (~~((to - from) / TIME_UNIT) + 1) * 50;
     };
 
     render() {
-        return (
+        return this.state.isLoadingEvents ? (
+            <div className="cd-schedule">
+                <div className="progress-container">
+                    <CircularProgress color="secondary" />
+                    <div>Loading events...</div>
+                </div>
+            </div>
+        ) : (
             <div className="cd-schedule">
                 <Timeline
                     from={this.state.timelineFrom}
                     to={this.state.timelineTo}
                 />
                 <EventsWrapper
-                    eventsGroupUlHeight={this.geteventsGroupUlHeight()}
+                    eventsGroupUlHeight={this.getEventsGroupUlHeight()}
                 />
             </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        isUserLoggedIn: state.user.isUserLoggedIn
+    };
+};
+
+export default connect(mapStateToProps)(Schedule);

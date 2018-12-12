@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import toTimeString from "../../utils/toTimeString.js";
-import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../../constants.js";
+import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../../constants";
 import "../../styles/Timeline.css";
 
 // Timeline of Schedule

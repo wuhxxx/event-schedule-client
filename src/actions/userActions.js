@@ -5,7 +5,7 @@ import {
     LOCAL_USERNAME_KEY,
     LOCAL_TOKEN_KEY,
     LOCAL_EXPIRESAT_KEY
-} from "../constants.js";
+} from "../constants";
 
 /**
  * User sign in action creator, return corresponding action,
