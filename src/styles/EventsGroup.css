@@ -1,13 +1,13 @@
-.events .events-group {
+.events-group {
     margin-bottom: 30px;
 }
 
-.events .top-info {
+.top-info {
     width: 100%;
     padding: 0 5%;
 }
 
-.events .top-info > span {
+.top-info > span {
     display: inline-block;
     line-height: 1.2;
     margin-bottom: 10px;
@@ -15,7 +15,7 @@
 }
 
 /* ? for single events' ul ? */
-.events .events-group > ul {
+.events-group > ul {
     position: relative;
     padding: 0 5%;
     /* force its children to stay on one line */
@@ -26,7 +26,7 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.events .events-group > ul::after {
+.events-group > ul::after {
     /* never visible - used to add a right padding to .events-group > ul */
     display: inline-block;
     content: "-";
@@ -37,17 +37,17 @@
 }
 
 @media only screen and (min-width: 800px) {
-    .events .events-group {
+    .events-group {
         width: 20%;
         float: left;
         border: 1px solid #eaeaea;
         /* reset style */
         margin-bottom: 0;
     }
-    .events .events-group:not(:first-of-type) {
+    .events-group:not(:first-of-type) {
         border-left-width: 0;
     }
-    .events .top-info {
+    .top-info {
         /* vertically center its content */
         display: table;
         height: 50px;
@@ -55,7 +55,7 @@
         /* reset style */
         padding: 0;
     }
-    .events .top-info > span {
+    .top-info > span {
         /* vertically center inside its parent */
         display: table-cell;
         vertical-align: middle;
@@ -65,7 +65,7 @@
         font-weight: normal;
         margin-bottom: 0;
     }
-    .events .events-group > ul {
+    .events-group > ul {
         /* * EventGroup component will set height for this ul, so below style will be overide. */
         height: 1050px;
         /* reset style */
@@ -73,12 +73,12 @@
         overflow: visible;
         padding: 0;
     }
-    .events .events-group > ul::after {
+    .events-group > ul::after {
         clear: both;
         content: "";
         display: block;
     }
-    .events .events-group > ul::after {
+    .events-group > ul::after {
         /* reset style */
         display: none;
     }
