@@ -84,7 +84,6 @@ class TopBar extends Component {
     );
 
     render() {
-        console.log(this.props.isUserLoggedIn);
         let navListClass = this.toggleNavListClassBy(
             this.state.isNavListVisible
         );

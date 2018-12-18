@@ -8,8 +8,11 @@ import { connect } from "react-redux";
 import { signUserIn } from "../../actions/userActions.js";
 import {
     USERNAME,
+    USERNAME_ERROR,
     EMAIL,
+    EMAIL_ERROR,
     PASSWORD,
+    PASSWORD_ERROR,
     USER_API_ROUTE,
     USER_ERRORS
 } from "../../constants";
@@ -32,18 +35,12 @@ class SignupForm extends Component {
     state = {
         isPasswordHidden: true,
         isTermsShown: false,
-        [USERNAME]: {
-            value: "",
-            hasError: false
-        },
-        [EMAIL]: {
-            value: "",
-            hasError: false
-        },
-        [PASSWORD]: {
-            value: "",
-            hasError: false
-        },
+        [USERNAME]: "",
+        [USERNAME_ERROR]: "",
+        [EMAIL]: "",
+        [EMAIL_ERROR]: "",
+        [PASSWORD]: "",
+        [PASSWORD_ERROR]: "",
         isWaitingApi: false
     };
 
@@ -52,10 +49,11 @@ class SignupForm extends Component {
         const value = target.value;
         const name = target.name;
 
-        // only validate input value only target has
-        const hasError = value ? userFormInputValidators[name](value) : false;
+        // validate input and get error object
+        const err = userFormInputValidators[name](value);
         this.setState({
-            [name]: { value, hasError }
+            ...err,
+            [name]: value
         });
     };
 
@@ -86,13 +84,13 @@ class SignupForm extends Component {
         event.preventDefault();
         // check if required field is empty
         const fields = [USERNAME, EMAIL, PASSWORD];
-        const errorMessage = "This field is required";
+        const errorFields = [USERNAME_ERROR, EMAIL_ERROR, PASSWORD_ERROR];
         const newUser = {};
         for (let i = 0; i < fields.length; i++) {
-            let input = this.state[fields[i]].value;
+            let input = this.state[fields[i]];
             if (!input) {
                 return this.setState({
-                    [fields[i]]: { value: input, hasError: errorMessage }
+                    [errorFields[i]]: "This field is required"
                 });
             }
             newUser[fields[i]] = input;
@@ -124,11 +122,8 @@ class SignupForm extends Component {
                     console.log(errorRes);
                     if (errorRes.name === USER_ERRORS.EmailRegistered) {
                         this.setState({
-                            [EMAIL]: {
-                                value: newUser[EMAIL],
-                                hasError:
-                                    "This email has been registered, use a different email address"
-                            }
+                            [EMAIL_ERROR]:
+                                "This email has been registered, use a different email address"
                         });
                     }
                 } else {
@@ -141,6 +136,14 @@ class SignupForm extends Component {
     };
 
     render() {
+        const usernameValue = this.state[USERNAME],
+            usernameError = this.state[USERNAME_ERROR],
+            emailValue = this.state[EMAIL],
+            emailError = this.state[EMAIL_ERROR],
+            passwordValue = this.state[PASSWORD],
+            passwordError = this.state[PASSWORD_ERROR],
+            isPasswordHidden = this.state.isPasswordHidden;
+
         return (
             <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
                 <form
@@ -158,18 +161,12 @@ class SignupForm extends Component {
                             type="text"
                             placeholder="Username"
                             name={USERNAME}
-                            value={this.state[USERNAME].value}
+                            value={usernameValue}
                             onChange={this.handleInputValueChange}
-                            className={this.toggleInputClassBy(
-                                this.state[USERNAME].hasError
-                            )}
+                            className={this.toggleInputClassBy(usernameError)}
                         />
-                        <span
-                            className={this.toggleSpanClassBy(
-                                this.state[USERNAME].hasError
-                            )}
-                        >
-                            {this.state[USERNAME].hasError}
+                        <span className={this.toggleSpanClassBy(usernameError)}>
+                            {usernameError}
                         </span>
                     </p>
 
@@ -185,18 +182,12 @@ class SignupForm extends Component {
                             type="email"
                             placeholder="E-mail"
                             name={EMAIL}
-                            value={this.state[EMAIL].value}
+                            value={emailValue}
                             onChange={this.handleInputValueChange}
-                            className={this.toggleInputClassBy(
-                                this.state[EMAIL].hasError
-                            )}
+                            className={this.toggleInputClassBy(emailError)}
                         />
-                        <span
-                            className={this.toggleSpanClassBy(
-                                this.state[EMAIL].hasError
-                            )}
-                        >
-                            {this.state[EMAIL].hasError}
+                        <span className={this.toggleSpanClassBy(emailError)}>
+                            {emailError}
                         </span>
                     </p>
 
@@ -211,30 +202,20 @@ class SignupForm extends Component {
                             id="signup-password"
                             placeholder="Password"
                             name={PASSWORD}
-                            value={this.state[PASSWORD].value}
+                            value={passwordValue}
                             onChange={this.handleInputValueChange}
-                            type={
-                                this.state.isPasswordHidden
-                                    ? "password"
-                                    : "text"
-                            }
-                            className={this.toggleInputClassBy(
-                                this.state[PASSWORD].hasError
-                            )}
+                            type={isPasswordHidden ? "password" : "text"}
+                            className={this.toggleInputClassBy(passwordError)}
                         />
                         <a
                             href="#0"
                             className="cd-signin-modal__hide-password js-hide-password"
                             onClick={this.toggleHidePassword}
                         >
-                            {this.state.isPasswordHidden ? "Show" : "Hide"}
+                            {isPasswordHidden ? "Show" : "Hide"}
                         </a>
-                        <span
-                            className={this.toggleSpanClassBy(
-                                this.state[PASSWORD].hasError
-                            )}
-                        >
-                            {this.state[PASSWORD].hasError}
+                        <span className={this.toggleSpanClassBy(passwordError)}>
+                            {passwordError}
                         </span>
                     </p>
 

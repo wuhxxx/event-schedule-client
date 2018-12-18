@@ -8,6 +8,7 @@ import {
     LOGINMODAL_FORM_SIGNIN,
     LOGINMODAL_FORM_SIGNUP,
     EMAIL,
+    EMAIL_ERROR,
     USER_API_ROUTE,
     USER_ERRORS
 } from "../../constants";
@@ -21,11 +22,8 @@ export default class ResetForm extends Component {
     };
 
     state = {
-        isEmailError: false,
-        [EMAIL]: {
-            value: "",
-            hasError: false
-        },
+        [EMAIL]: "",
+        [EMAIL_ERROR]: "",
         isWaitingApi: false
     };
 
@@ -34,10 +32,11 @@ export default class ResetForm extends Component {
         const value = target.value;
         const name = target.name;
 
-        // only validate input value only target has
-        const hasError = value ? userFormInputValidators[name](value) : false;
+        // validate input and get error object
+        const err = userFormInputValidators[name](value);
         this.setState({
-            [name]: { value, hasError }
+            ...err,
+            [name]: value
         });
     };
 
@@ -54,11 +53,10 @@ export default class ResetForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         // check if required field is empty
-        const emailInput = this.state[EMAIL].value;
+        const emailInput = this.state[EMAIL];
         if (!emailInput) {
-            const errorMessage = "This field is required";
             return this.setState({
-                [EMAIL]: { value: emailInput, hasError: errorMessage }
+                [EMAIL_ERROR]: "This field is required"
             });
         }
         // set state to indicate waiting api response
@@ -76,10 +74,7 @@ export default class ResetForm extends Component {
                     const errorRes = err.response.data.error;
                     if (errorRes.name === USER_ERRORS.UserNotFound)
                         this.setState({
-                            [EMAIL]: {
-                                value: emailInput,
-                                hasError: "Cannot find account with this email"
-                            }
+                            [EMAIL_ERROR]: "Cannot find account with this email"
                         });
                 } else {
                     // network error
@@ -91,6 +86,8 @@ export default class ResetForm extends Component {
     };
 
     render() {
+        const emailValue = this.state[EMAIL],
+            emailError = this.state[EMAIL_ERROR];
         return (
             <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
                 <p className="cd-signin-modal__message">
@@ -115,18 +112,12 @@ export default class ResetForm extends Component {
                             type="email"
                             placeholder="E-mail"
                             name={EMAIL}
-                            value={this.state[EMAIL].value}
+                            value={emailValue}
                             onChange={this.handleInputValueChange}
-                            className={this.toggleInputClassBy(
-                                this.state[EMAIL].hasError
-                            )}
+                            className={this.toggleInputClassBy(emailError)}
                         />
-                        <span
-                            className={this.toggleSpanClassBy(
-                                this.state[EMAIL].hasError
-                            )}
-                        >
-                            {this.state[EMAIL].hasError}
+                        <span className={this.toggleSpanClassBy(emailError)}>
+                            {emailError}
                         </span>
                     </p>
 
