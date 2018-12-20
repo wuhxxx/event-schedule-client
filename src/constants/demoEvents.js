@@ -1,5 +1,6 @@
 const absCircuit = [
     {
+        eventId: "1545273914851", // Date.now().toString()
         title: "Abs Circuit",
         location: "Wheeler 150",
         description:
@@ -10,6 +11,7 @@ const absCircuit = [
         weekday: 0
     },
     {
+        eventId: "1545273914852",
         title: "Abs Circuit",
         location: "Wheeler 150",
         description:
@@ -20,6 +22,7 @@ const absCircuit = [
         weekday: 4
     },
     {
+        eventId: "1545273914853",
         title: "Abs Circuit",
         location: "Wheeler 150",
         description:
@@ -30,6 +33,7 @@ const absCircuit = [
         weekday: 3
     },
     {
+        eventId: "1545273914854",
         title: "Abs Circuit",
         location: "Wheeler 150",
         description:
@@ -40,6 +44,7 @@ const absCircuit = [
         weekday: 3
     },
     {
+        eventId: "1545273914855",
         title: "Abs Circuit",
         location: "Wheeler 150",
         description:
@@ -53,6 +58,7 @@ const absCircuit = [
 
 const rowingWorkout = [
     {
+        eventId: "1545273914856",
         title: "Rowing Workout",
         location: "Recreational Sports Facility",
         description:
@@ -63,6 +69,7 @@ const rowingWorkout = [
         weekday: 0
     },
     {
+        eventId: "1545273914857",
         title: "Rowing Workout",
         location: "Recreational Sports Facility",
         description:
@@ -73,6 +80,7 @@ const rowingWorkout = [
         weekday: 1
     },
     {
+        eventId: "1545273914858",
         title: "Rowing Workout",
         location: "Recreational Sports Facility",
         description:
@@ -83,6 +91,7 @@ const rowingWorkout = [
         weekday: 2
     },
     {
+        eventId: "1545273914859",
         title: "Rowing Workout",
         location: "Recreational Sports Facility",
         description:
@@ -93,6 +102,7 @@ const rowingWorkout = [
         weekday: 3
     },
     {
+        eventId: "1545273914860",
         title: "Rowing Workout",
         location: "Recreational Sports Facility",
         description:
@@ -106,6 +116,7 @@ const rowingWorkout = [
 
 const yoga = [
     {
+        eventId: "1545273914861",
         title: "Yoga Level 1",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
@@ -115,6 +126,7 @@ const yoga = [
         weekday: 0
     },
     {
+        eventId: "1545273914862",
         title: "Yoga Level 1",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
@@ -124,6 +136,7 @@ const yoga = [
         weekday: 1
     },
     {
+        eventId: "1545273914863",
         title: "Yoga Level 1",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
@@ -133,6 +146,7 @@ const yoga = [
         weekday: 2
     },
     {
+        eventId: "1545273914864",
         title: "Yoga Level 1",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
@@ -142,6 +156,7 @@ const yoga = [
         weekday: 2
     },
     {
+        eventId: "1545273914865",
         title: "Yoga Level 1",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
@@ -154,6 +169,7 @@ const yoga = [
 
 const restorativeYoga = [
     {
+        eventId: "1545273914866",
         title: "Restorative Yoga",
         description:
             "Restorative Yoga. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
@@ -163,6 +179,7 @@ const restorativeYoga = [
         weekday: 1
     },
     {
+        eventId: "1545273914867",
         title: "Restorative Yoga",
         description:
             "Restorative Yoga. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
@@ -172,6 +189,7 @@ const restorativeYoga = [
         weekday: 2
     },
     {
+        eventId: "1545273914868",
         title: "Restorative Yoga",
         description:
             "Restorative Yoga. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
