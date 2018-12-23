@@ -22,7 +22,7 @@ class SigninForm extends Component {
     static propTypes = {
         closeModal: PropTypes.func,
         openModalWithForm: PropTypes.func,
-        dispatch: PropTypes.func
+        signUserIn: PropTypes.func
     };
 
     state = {
@@ -80,6 +80,7 @@ class SigninForm extends Component {
             }
             user[fields[i]] = input;
         }
+        console.log(user);
         // set state to indicate waiting api response
         this.setState({ isWaitingApi: true });
         // make a request to api
@@ -92,9 +93,7 @@ class SigninForm extends Component {
                 this.setState({ isWaitingApi: false });
                 this.props.closeModal();
                 // dispatch signin action
-                this.props.dispatch(
-                    signUserIn(res.data.data, this.checkBox.checked)
-                );
+                this.props.signUserIn(res.data.data, this.checkBox.checked);
             })
             .catch(err => {
                 if (err.response) {
@@ -221,4 +220,7 @@ class SigninForm extends Component {
     }
 }
 
-export default connect()(SigninForm);
+export default connect(
+    null,
+    { signUserIn }
+)(SigninForm);

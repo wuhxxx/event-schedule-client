@@ -29,7 +29,7 @@ class SignupForm extends Component {
     static propTypes = {
         closeModal: PropTypes.func,
         openModalWithForm: PropTypes.func,
-        dispatch: PropTypes.func
+        signUserIn: PropTypes.func
     };
 
     state = {
@@ -114,7 +114,7 @@ class SignupForm extends Component {
                 this.setState({ isWaitingApi: false });
                 this.props.closeModal();
                 // dispatch signin action, remember user by default
-                this.props.dispatch(signUserIn(res.data.data, true));
+                this.props.signUserIn(res.data.data, true);
             })
             .catch(err => {
                 if (err.response) {
@@ -272,4 +272,7 @@ class SignupForm extends Component {
     }
 }
 
-export default connect()(SignupForm);
+export default connect(
+    null,
+    { signUserIn }
+)(SignupForm);

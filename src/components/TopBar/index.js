@@ -16,7 +16,7 @@ import "../../styles/TopBar.css";
 
 class TopBar extends Component {
     static propTypes = {
-        dispatch: PropTypes.func,
+        logUserOut: PropTypes.func,
         isUserLoggedIn: PropTypes.bool,
         username: PropTypes.string
     };
@@ -75,7 +75,7 @@ class TopBar extends Component {
         event.stopPropagation();
         event.preventDefault();
         toast.info("👋 See ya~");
-        this.props.dispatch(logUserOut());
+        this.props.logUserOut();
     };
 
     toggleNavListClassBy = classTogglerBuilder(
@@ -161,4 +161,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(TopBar);
+export default connect(
+    mapStateToProps,
+    { logUserOut }
+)(TopBar);
