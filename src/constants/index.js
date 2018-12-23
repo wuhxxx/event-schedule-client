@@ -25,9 +25,9 @@ export const LOGINMODAL_FORM_SIGNIN = "Signin";
 export const LOGINMODAL_FORM_RESET = "Reset";
 export const LOGINMODAL_FORM_SIGNUP = "Signup";
 // login/signup form input fields
-export const USERNAME = "USERNAME";
-export const EMAIL = "EMAIL";
-export const PASSWORD = "PASSWORD";
+export const USERNAME = "username";
+export const EMAIL = "email";
+export const PASSWORD = "password";
 // login/signup form input fields error
 export const USERNAME_ERROR = "USERNAME_ERROR";
 export const EMAIL_ERROR = "EMAIL_ERROR";
