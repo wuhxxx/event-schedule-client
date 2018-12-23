@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import reducer from "../reducers";
 import thunk from "redux-thunk";
 import { signUserIn } from "../actions/userActions.js";
+import { loadDemoEvents } from "../actions/eventActions.js";
 import { ToastContainer, toast } from "react-toastify";
 import {
     LOCAL_USERNAME_KEY,
@@ -35,6 +36,8 @@ const expiresAt = localStorage.getItem(LOCAL_EXPIRESAT_KEY);
 const validUntil = Date.now() + LEAST_AVAILABLE_TIME;
 if (username && token && expiresAt && expiresAt > validUntil) {
     store.dispatch(signUserIn({ username, token }, false));
+} else {
+    store.dispatch(loadDemoEvents());
 }
 
 class App extends Component {
