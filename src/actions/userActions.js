@@ -1,5 +1,6 @@
 import axios from "axios";
 import { USER_LOG_OUT, USER_SIGN_IN } from "./actionTypes.js";
+import { loadUserEvents, clearEvents } from "./eventActions.js";
 import {
     AUTH_HEADER,
     LOCAL_USERNAME_KEY,
@@ -13,7 +14,7 @@ import {
  * @param {Object} userData response data from backend '/users' route
  * @param {Boolean} toRememberUser true if remember user
  */
-export const signUserIn = (userData, toRememberUser) => {
+export const signUserIn = (userData, toRememberUser) => dispatch => {
     const { username, token } = userData;
     // bearer token
     const authToken = `${AUTH_HEADER} ${token}`;
@@ -28,21 +29,26 @@ export const signUserIn = (userData, toRememberUser) => {
         localStorage.setItem(LOCAL_TOKEN_KEY, token);
         localStorage.setItem(LOCAL_EXPIRESAT_KEY, expiresAt);
     }
-    // return action
-    return {
+    // dispatch signin action
+    dispatch({
         type: USER_SIGN_IN,
         username
-    };
+    });
+    // dispatch load user events action
+    dispatch(loadUserEvents());
 };
 
-export const logUserOut = () => {
+export const logUserOut = () => dispatch => {
     // delete axios auth token, this will apply to all sequential requests
     delete axios.defaults.headers.common["Authorization"];
     // delete user info in localStorage
     localStorage.removeItem(LOCAL_USERNAME_KEY);
     localStorage.removeItem(LOCAL_TOKEN_KEY);
     localStorage.removeItem(LOCAL_EXPIRESAT_KEY);
-    return {
+    // dispatch log out action
+    dispatch({
         type: USER_LOG_OUT
-    };
+    });
+    // dispatch clear events action
+    dispatch(clearEvents());
 };
