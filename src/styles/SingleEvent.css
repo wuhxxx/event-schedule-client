@@ -22,6 +22,10 @@
     padding: 0.8em;
 }
 
+.single-event a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 @media only screen and (min-width: 550px) {
     .single-event {
         width: 40%;
