@@ -65,9 +65,7 @@ export const clearError = () => dispatch => {
 
 // load demo events
 export const loadDemoEvents = () => dispatch => {
-    setTimeout(() => {
-        dispatch(setEvents(DEMO_EVENTS));
-    }, 50);
+    dispatch(setEvents(DEMO_EVENTS));
 };
 
 // todo: handle token expired
