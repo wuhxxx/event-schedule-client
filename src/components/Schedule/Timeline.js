@@ -9,7 +9,7 @@ function Timeline(props) {
     const { from, to } = props;
     // each element in timelist represents a vertical line in events grid
     const timeList = [];
-    for (let time = from; time <= to; time += TIMELINE_UNIT_DURATION) {
+    for (let time = from; time < to; time += TIMELINE_UNIT_DURATION) {
         timeList.push(
             <li key={time}>
                 <span>{toTimeString(time)}</span>
