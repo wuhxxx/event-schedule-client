@@ -1,40 +1,45 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Responsive from "react-responsive";
+import SingleEvent from "./SingleEvent";
+
 import "../../styles/EventsGroup.css";
 
-const Tablet = props => <Responsive {...props} minWidth={800} />;
+const Desktop = props => <Responsive {...props} minWidth={800} />;
 const Mobile = props => <Responsive {...props} maxWidth={799} />;
 
 export default class EventsGroup extends Component {
     // prop types
     static propTypes = {
-        weekday: PropTypes.string,
-        eventsGroupUlHeight: PropTypes.number
+        events: PropTypes.array.isRequired,
+        weekday: PropTypes.string.isRequired,
+        timelineFrom: PropTypes.number.isRequired,
+        ulCSSHeight: PropTypes.number.isRequired
     };
 
-    // constructor(props) {
-    //     super(props);
-    // }
-
     render() {
+        const { events, weekday, timelineFrom, ulCSSHeight } = this.props;
         return (
             <li className="events-group">
                 <div className="top-info">
-                    <span>{this.props.weekday}</span>
+                    <span>{weekday}</span>
                 </div>
-                <Tablet>
-                    <ul style={{ height: this.props.eventsGroupUlHeight }}>
-                        {/* <li className="single-event">
-                        <a href="#0">
-                            <em class="event-name">Abs Circuit</em>
-                        </a>
-                    </li> */}
+                <Desktop>
+                    <ul style={{ height: ulCSSHeight }}>
+                        {events.map(event => (
+                            <SingleEvent
+                                event={event}
+                                timelineFrom={timelineFrom}
+                                isOnDesktop={true}
+                                key={event.eventId}
+                            />
+                        ))}
                     </ul>
-                </Tablet>
+                </Desktop>
                 <Mobile>
                     <ul>
-                        {/* <li className="single-event">
+                        {/* need to place events by the order of start time
+                        <li className="single-event">
                         <a href="#0">
                             <em class="event-name">Abs Circuit</em>
                         </a>

@@ -1,52 +1,32 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import toTimeString from "../../utils/toTimeString.js";
-import { TIME_UNIT, DEFAULT_TO, DEFAULT_FROM } from "../../constants";
+import { TIMELINE_UNIT_DURATION } from "../../constants";
 import "../../styles/Timeline.css";
 
 // Timeline of Schedule
-export default class Timeline extends Component {
-    // prop types
-    static propTypes = {
-        from: PropTypes.number,
-        to: PropTypes.number
-    };
-
-    // default props
-    static defaultProps = {
-        from: DEFAULT_FROM,
-        to: DEFAULT_TO
-    };
-
-    constructor(props) {
-        super(props);
-
-        // state of timeline
-        this.state = {
-            // from: this.props.from,
-            // to: this.props.to
-        };
+function Timeline(props) {
+    const { from, to } = props;
+    // each element in timelist represents a vertical line in events grid
+    const timeList = [];
+    for (let time = from; time <= to; time += TIMELINE_UNIT_DURATION) {
+        timeList.push(
+            <li key={time}>
+                <span>{toTimeString(time)}</span>
+            </li>
+        );
     }
-
-    // return a <ul> which has a bunch of <li> according to timelins's start and end
-    getTimeline = () => {
-        const timeList = [];
-        for (
-            let time = this.props.from;
-            time <= this.props.to;
-            time += TIME_UNIT
-        ) {
-            timeList.push(
-                <li key={time}>
-                    <span>{toTimeString(time)}</span>
-                </li>
-            );
-        }
-
-        return <ul>{timeList}</ul>;
-    };
-
-    render() {
-        return <div className="timeline">{this.getTimeline()}</div>;
-    }
+    return (
+        <div className="timeline">
+            <ul>{timeList}</ul>
+        </div>
+    );
 }
+
+// prop types
+Timeline.propTypes = {
+    from: PropTypes.number.isRequired,
+    to: PropTypes.number.isRequired
+};
+
+export default Timeline;
