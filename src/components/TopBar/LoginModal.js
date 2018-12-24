@@ -26,24 +26,21 @@ export default class LoginModal extends Component {
         openModalWithForm: PropTypes.func
     };
 
+    escKeyDownHandler = event => {
+        event.stopPropagation();
+        if (this.props.isModalOpen && event.keyCode === ESC_KEY) {
+            this.props.closeModal();
+        }
+    };
+
     componentDidMount() {
         // add event listener for esc key down
-        document.addEventListener("keydown", event => {
-            event.stopPropagation();
-            if (event.keyCode === ESC_KEY) {
-                this.props.closeModal();
-            }
-        });
+        document.addEventListener("keydown", this.escKeyDownHandler);
     }
 
     componentWillUnmount() {
         // remove event listener
-        document.removeEventListener("keydown", event => {
-            event.stopPropagation();
-            if (event.keyCode === ESC_KEY) {
-                this.props.closeModal();
-            }
-        });
+        document.removeEventListener("keydown", this.escKeyDownHandler);
     }
 
     render() {
