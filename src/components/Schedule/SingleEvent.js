@@ -7,7 +7,7 @@ import { EVENT_SLOT_HEIGHT, TIMELINE_UNIT_DURATION } from "../../constants";
 import "../../styles/SingleEvent.css";
 
 function SingleEvent(props) {
-    const { event, timelineFrom, isOnDesktop } = props;
+    const { event, timelineFrom, isOnDesktop, openModal } = props;
     const { title, color, startAt, endAt } = event;
 
     const liStyle = { backgroundColor: toHexColor(color) };
@@ -25,7 +25,7 @@ function SingleEvent(props) {
     }
     return (
         <li className="single-event" style={liStyle}>
-            <a href="#0" onClick={null}>
+            <a href="#0" onClick={openModal}>
                 <span className="event-date">
                     {`${toTimeString(startAt)} - ${toTimeString(endAt)}`}
                 </span>
@@ -37,6 +37,7 @@ function SingleEvent(props) {
 
 SingleEvent.propTypes = {
     event: PropTypes.object.isRequired,
+    openModal: PropTypes.func.isRequired,
     timelineFrom: PropTypes.number.isRequired,
     isOnDesktop: PropTypes.bool
 };

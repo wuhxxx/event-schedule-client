@@ -43,6 +43,12 @@ class Schedule extends Component {
         }
     }
 
+    // return a click handler which bind a specific event for <SingleEvent />
+    openModalWithEvent = event => e => {
+        e.preventDefault();
+        console.log(event.description);
+    };
+
     // Iterate through given events array and organize it to a 2-D array by weekday.
     // also compute the timeline's from and to
     organizeEventsByWeekday = events => {
@@ -116,11 +122,12 @@ class Schedule extends Component {
                     <ul>
                         {WEEK_DAYS.map((WEEK_DAY, i) => (
                             <EventsGroup
-                                events={eventsByWeekday[i]}
+                                key={i}
                                 weekday={WEEK_DAY}
+                                events={eventsByWeekday[i]}
                                 timelineFrom={timelineFrom}
                                 ulCSSHeight={eventsGroupUlHeight}
-                                key={i}
+                                openModalWithEvent={this.openModalWithEvent}
                             />
                         ))}
                     </ul>

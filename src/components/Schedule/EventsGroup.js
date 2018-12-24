@@ -14,11 +14,18 @@ export default class EventsGroup extends Component {
         events: PropTypes.array.isRequired,
         weekday: PropTypes.string.isRequired,
         timelineFrom: PropTypes.number.isRequired,
-        ulCSSHeight: PropTypes.number.isRequired
+        ulCSSHeight: PropTypes.number.isRequired,
+        openModalWithEvent: PropTypes.func.isRequired
     };
 
     render() {
-        const { events, weekday, timelineFrom, ulCSSHeight } = this.props;
+        const {
+            events,
+            weekday,
+            timelineFrom,
+            ulCSSHeight,
+            openModalWithEvent
+        } = this.props;
         return (
             <li className="events-group">
                 <div className="top-info">
@@ -29,21 +36,25 @@ export default class EventsGroup extends Component {
                         {events.map(event => (
                             <SingleEvent
                                 event={event}
-                                timelineFrom={timelineFrom}
                                 isOnDesktop={true}
                                 key={event.eventId}
+                                timelineFrom={timelineFrom}
+                                openModal={openModalWithEvent(event)}
                             />
                         ))}
                     </ul>
                 </Desktop>
                 <Mobile>
                     <ul>
-                        {/* need to place events by the order of start time
-                        <li className="single-event">
-                        <a href="#0">
-                            <em class="event-name">Abs Circuit</em>
-                        </a>
-                    </li> */}
+                        {events.map(event => (
+                            <SingleEvent
+                                event={event}
+                                isOnDesktop={false}
+                                key={event.eventId}
+                                timelineFrom={timelineFrom}
+                                openModal={openModalWithEvent(event)}
+                            />
+                        ))}
                     </ul>
                 </Mobile>
             </li>
