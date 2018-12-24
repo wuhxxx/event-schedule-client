@@ -53,6 +53,9 @@ class Schedule extends Component {
             eventsByWeekday[i] = [];
         }
         if (Array.isArray(events)) {
+            // sort events by event's startAt
+            events.sort((e1, e2) => e1.startAt - e2.startAt);
+            // loop through events
             for (let i = 0; i < events.length; i++) {
                 let event = events[i];
                 let { weekday, startAt, endAt } = event;
