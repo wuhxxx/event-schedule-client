@@ -1,0 +1,281 @@
+/* ? Event modal style */
+.event-modal {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    visibility: hidden;
+    /* Force Hardware acceleration */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+    -webkit-transition: visibility 0.4s, -webkit-transform 0.4s;
+    transition: visibility 0.4s, -webkit-transform 0.4s;
+    transition: transform 0.4s, visibility 0.4s;
+    transition: transform 0.4s, visibility 0.4s, -webkit-transform 0.4s;
+    -webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+    transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+}
+
+.event-modal .header {
+    position: relative;
+    height: 70px;
+    /* vertically center its content */
+    display: table;
+    width: 100%;
+}
+
+.event-modal .header .content {
+    position: relative;
+    z-index: 3;
+    /* vertically center inside its parent */
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0.6em 5%;
+}
+
+.event-modal .body {
+    position: relative;
+    width: 100%;
+    /* 70px is the .header height */
+    height: calc(100% - 70px);
+}
+
+.event-modal .event-info {
+    position: relative;
+    z-index: 2;
+    line-height: 1.4;
+    height: 100%;
+    overflow: hidden;
+}
+
+.event-modal .event-info > div {
+    overflow: auto;
+    height: 100%;
+    padding: 1.4em 5%;
+}
+
+.event-modal .header-bg,
+.event-modal .body-bg {
+    /* these are the morphing backgrounds - visible on desktop only */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.event-modal .body-bg {
+    z-index: 1;
+    background: white;
+    -webkit-transform-origin: top left;
+    -ms-transform-origin: top left;
+    transform-origin: top left;
+}
+
+.event-modal .header-bg {
+    z-index: 2;
+    -webkit-transform-origin: top center;
+    -ms-transform-origin: top center;
+    transform-origin: top center;
+}
+
+.event-modal .close {
+    /* this is the 'X' icon */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.1);
+    /* replace text with icon */
+    color: transparent;
+    white-space: nowrap;
+    text-indent: 100%;
+    height: 70px;
+    width: 70px;
+}
+
+.event-modal .close::before,
+.event-modal .close::after {
+    /* these are the two lines of the 'X' icon */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 22px;
+    background: white;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.event-modal .close::before {
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+}
+
+.event-modal .close::after {
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+}
+
+.event-modal .event-date {
+    display: none;
+}
+
+.event-modal.no-transition {
+    -webkit-transition: none;
+    transition: none;
+}
+
+.event-modal.no-transition .header-bg,
+.event-modal.no-transition .body-bg {
+    -webkit-transition: none;
+    transition: none;
+}
+
+@media only screen and (min-width: 800px) {
+    .event-modal {
+        /* reset style */
+        right: auto;
+        width: auto;
+        height: auto;
+        -webkit-transform: translateX(0);
+        -ms-transform: translateX(0);
+        transform: translateX(0);
+        will-change: transform, width, height;
+        -webkit-transition: height 0.4s, width 0.4s, visibility 0.4s,
+            -webkit-transform 0.4s;
+        transition: height 0.4s, width 0.4s, visibility 0.4s,
+            -webkit-transform 0.4s;
+        transition: height 0.4s, width 0.4s, transform 0.4s, visibility 0.4s;
+        transition: height 0.4s, width 0.4s, transform 0.4s, visibility 0.4s,
+            -webkit-transform 0.4s;
+        -webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+        transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+    }
+    .event-modal .header {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        height: 100%;
+    }
+    .event-modal .header .content {
+        /* reset style */
+        display: block;
+        padding: 0.8em;
+    }
+    .event-modal .event-info > div {
+        padding: 2em 3em 2em 2em;
+    }
+    .event-modal .body {
+        height: 100%;
+        width: auto;
+    }
+    .event-modal .header-bg,
+    .event-modal .body-bg {
+        /* Force Hardware acceleration */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        will-change: transform;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    .event-modal .header-bg {
+        -webkit-transition: -webkit-transform 0.4s;
+        transition: -webkit-transform 0.4s;
+        transition: transform 0.4s;
+        transition: transform 0.4s, -webkit-transform 0.4s;
+        -webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+        transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+    }
+    .event-modal .body-bg {
+        opacity: 0;
+        -webkit-transform: none;
+        -ms-transform: none;
+        transform: none;
+    }
+    .event-modal .event-date {
+        display: block;
+    }
+    .event-modal .close,
+    .event-modal .event-info {
+        opacity: 0;
+    }
+    .event-modal .close {
+        width: 40px;
+        height: 40px;
+        background: transparent;
+    }
+    .event-modal .close::after,
+    .event-modal .close::before {
+        background: #222222;
+        height: 16px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .event-modal .header .content {
+        padding: 1.2em;
+    }
+}
+
+.cd-schedule.modal-is-open .event-modal {
+    /* .modal-is-open class is added as soon as an event is selected */
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.cd-schedule.modal-is-open .event-modal .event-info > div {
+    /* smooth scroll on iOS touch devices */
+    -webkit-overflow-scrolling: touch;
+}
+
+@media only screen and (min-width: 800px) {
+    .cd-schedule.animation-completed .event-modal .close,
+    .cd-schedule.content-loaded.animation-completed .event-modal .event-info {
+        /* 	the .animation-completed class is added when the modal animation is completed
+              the .content-loaded class is added when the modal content has been loaded (using ajax) */
+        opacity: 1;
+        -webkit-transition: opacity 0.2s;
+        transition: opacity 0.2s;
+    }
+    .cd-schedule.modal-is-open .body-bg {
+        opacity: 1;
+        -webkit-transition: -webkit-transform 0.4s;
+        transition: -webkit-transform 0.4s;
+        transition: transform 0.4s;
+        transition: transform 0.4s, -webkit-transform 0.4s;
+        -webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+        transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+    }
+}
+
+.cover-layer {
+    /* layer between the content and the modal window */
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 0.4s, visibility 0.4s;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+
+.cover-layer.modal-is-visible {
+    opacity: 1;
+    visibility: visible;
+}
