@@ -4,10 +4,14 @@ export const LOCAL_TOKEN_KEY = "TOKEN_KEY";
 export const LOCAL_EXPIRESAT_KEY = "EXPIRESAT_KEY";
 
 /********************** Schedule related constants **********************/
-// unit duration of timeline
+// unit duration of timeline, number of minutes
 export const TIMELINE_UNIT_DURATION = 30;
-// event slot height in schedule grid
+// event slot height in schedule grid, number of px
 export const EVENT_SLOT_HEIGHT = 50;
+// minimal event duation to render event time span, number of minutes
+export const MIN_DURATION_TO_RENDER_TIME = 50;
+// minimal event duation to render event title, number of minutes
+export const MIN_DURATION_TO_RENDER_TITLE = 15;
 // default timeline start time;
 export const DEFAULT_FROM = 9 * 2 * 30;
 // default timeline end time;
