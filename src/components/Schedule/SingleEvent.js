@@ -13,7 +13,7 @@ import "../../styles/SingleEvent.css";
 
 function SingleEvent(props) {
     const { event, timelineFrom, isOnDesktop, openModal } = props;
-    const { title, color, startAt, endAt } = event;
+    const { eventId, title, color, startAt, endAt } = event;
 
     // set event block's color
     const liStyle = { backgroundColor: toHexColor(color) };
@@ -52,7 +52,7 @@ function SingleEvent(props) {
     }
 
     return (
-        <li className="single-event" style={liStyle}>
+        <li id={eventId} className="single-event" style={liStyle}>
             <a href="#0" onClick={openModal} style={aStyle}>
                 {ifToRenderTime && (
                     <span className="event-date">
