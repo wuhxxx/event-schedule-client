@@ -1,35 +1,72 @@
-/* ? Event modal style */
 .event-modal {
     position: fixed;
-    z-index: 3;
+    z-index: 10;
     top: 0;
     right: 0;
     height: 100%;
     width: 100%;
+    opacity: 0;
     visibility: hidden;
     /* Force Hardware acceleration */
-    -webkit-transform: translateZ(0);
+    /* -webkit-transform: translateZ(0);
     transform: translateZ(0);
     -webkit-transform: translateX(100%);
-    -ms-transform: translateX(100%);
-    transform: translateX(100%);
-    -webkit-transition: visibility 0.4s, -webkit-transform 0.4s;
-    transition: visibility 0.4s, -webkit-transform 0.4s;
-    transition: transform 0.4s, visibility 0.4s;
-    transition: transform 0.4s, visibility 0.4s, -webkit-transform 0.4s;
-    -webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
-    transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+    -ms-transform: translateX(100%); */
+
+    /* -webkit-transition: visibility 0.4s, -webkit-transform 0.4s;
+    transition: visibility 0.4s, -webkit-transform 0.4s; */
+    transition: visibility 0.2s, opacity 0.2s;
+    /* transition: transform 0.4s, visibility 0.4s, -webkit-transform 0.4s; */
 }
 
-.event-modal .header {
+.event-modal.modal-is-visible {
+    /* .modal-is-open class is added as soon as an event is selected */
+    /* -webkit-transform: translateX(0);
+    -ms-transform: translateX(0); */
+    opacity: 1;
+    visibility: visible;
+}
+
+.cover-layer {
+    /* layer between the content and the modal window */
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    /* opacity: 0;
+    visibility: hidden; */
+    /* -webkit-transition: opacity 0.4s, visibility 0.4s; */
+    /* transition: opacity 0.1s, visibility 0.1s; */
+}
+
+/* event form style on mobile */
+.event-form {
     position: relative;
-    height: 70px;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.2s;
+}
+
+.modal-is-visible .event-form {
+    transform: translateX(0);
+}
+
+.event-form .header {
+    /* position: relative; */
+    height: 80px;
     /* vertically center its content */
     display: table;
-    width: 100%;
+    /* width: 100%; */
 }
 
-.event-modal .header .content {
+.event-form .header .content {
     position: relative;
     z-index: 3;
     /* vertically center inside its parent */
@@ -38,53 +75,71 @@
     padding: 0.6em 5%;
 }
 
-.event-modal .body {
-    position: relative;
+.event-form .body {
+    /* position: relative; */
     width: 100%;
-    /* 70px is the .header height */
-    height: calc(100% - 70px);
+    background-color: white;
+    /* 80px is the .header height */
+    /* height: calc(100% - 80px); */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.event-modal .event-info {
-    position: relative;
+.event-form .event-info {
+    /* position: relative; */
     z-index: 2;
     line-height: 1.4;
     height: 100%;
-    overflow: hidden;
+    padding: 1.4em 5% 0;
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
 }
 
-.event-modal .event-info > div {
-    overflow: auto;
-    height: 100%;
-    padding: 1.4em 5%;
-}
-
-.event-modal .header-bg,
-.event-modal .body-bg {
-    /* these are the morphing backgrounds - visible on desktop only */
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
+.buttons-bar {
     width: 100%;
+    /* fixed height, no grow nor shrink */
+    flex: 0 0 52px;
+    padding-right: 10px;
+    display: flex;
+    /* flex-direction: row-reverse; */
+    justify-content: flex-end;
+    align-items: center;
 }
 
-.event-modal .body-bg {
-    z-index: 1;
-    background: white;
-    -webkit-transform-origin: top left;
-    -ms-transform-origin: top left;
-    transform-origin: top left;
+.event-name,
+.event-date,
+.event-location {
+    display: block;
+    color: white;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.event-modal .header-bg {
-    z-index: 2;
-    -webkit-transform-origin: top center;
-    -ms-transform-origin: top center;
-    transform-origin: top center;
+.event-date {
+    /* they are not included in the the HTML but added using JavScript */
+    font-size: 1.4rem;
+    opacity: 0.7;
+    line-height: 1.2;
+    margin-bottom: 0.2em;
 }
 
-.event-modal .close {
+.event-location {
+    color: black;
+    font-size: 1.6rem;
+    opacity: 0.7;
+    /* line-height: 1.2; */
+    margin-bottom: 0.4em;
+}
+
+.event-description {
+    flex-grow: 1;
+    overflow: scroll;
+}
+
+.event-form .close {
     /* this is the 'X' icon */
     position: absolute;
     top: 0;
@@ -95,12 +150,12 @@
     color: transparent;
     white-space: nowrap;
     text-indent: 100%;
-    height: 70px;
-    width: 70px;
+    height: 80px;
+    width: 80px;
 }
 
-.event-modal .close::before,
-.event-modal .close::after {
+.event-form .close::before,
+.event-form .close::after {
     /* these are the two lines of the 'X' icon */
     content: "";
     position: absolute;
@@ -109,173 +164,89 @@
     width: 2px;
     height: 22px;
     background: white;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
 }
 
-.event-modal .close::before {
+.event-form .close::before {
     -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
     -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
     transform: translateX(-50%) translateY(-50%) rotate(45deg);
 }
 
-.event-modal .close::after {
+.event-form .close::after {
     -webkit-transform: translateX(-50%) translateY(-50%) rotate(-45deg);
     -ms-transform: translateX(-50%) translateY(-50%) rotate(-45deg);
     transform: translateX(-50%) translateY(-50%) rotate(-45deg);
 }
 
-.event-modal .event-date {
-    display: none;
-}
-
-.event-modal.no-transition {
-    -webkit-transition: none;
-    transition: none;
-}
-
-.event-modal.no-transition .header-bg,
-.event-modal.no-transition .body-bg {
-    -webkit-transition: none;
-    transition: none;
-}
-
 @media only screen and (min-width: 800px) {
-    .event-modal {
-        /* reset style */
-        right: auto;
-        width: auto;
-        height: auto;
-        -webkit-transform: translateX(0);
-        -ms-transform: translateX(0);
-        transform: translateX(0);
-        will-change: transform, width, height;
-        -webkit-transition: height 0.4s, width 0.4s, visibility 0.4s,
-            -webkit-transform 0.4s;
-        transition: height 0.4s, width 0.4s, visibility 0.4s,
-            -webkit-transform 0.4s;
-        transition: height 0.4s, width 0.4s, transform 0.4s, visibility 0.4s;
-        transition: height 0.4s, width 0.4s, transform 0.4s, visibility 0.4s,
-            -webkit-transform 0.4s;
-        -webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
-        transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+    /* event form style on desktop */
+    .event-form {
+        width: 90%;
+        max-width: 800px;
+        height: 90%;
+        max-height: 480px;
+        flex-direction: row;
+        top: 50%; /* vertical center the event form div */
+        transform: translateY(-75%);
+        margin: auto;
     }
-    .event-modal .header {
-        position: absolute;
+
+    .modal-is-visible .event-form {
+        /* vertical center the event form div */
+        transform: translateY(-50%);
+    }
+
+    /* header */
+    .event-form .header {
         display: block;
-        top: 0;
-        left: 0;
         height: 100%;
+        width: 28%;
     }
-    .event-modal .header .content {
+    .event-form .header .content {
         /* reset style */
         display: block;
         padding: 0.8em;
     }
-    .event-modal .event-info > div {
-        padding: 2em 3em 2em 2em;
-    }
-    .event-modal .body {
+
+    /* body */
+    .event-form .body {
+        flex-grow: 1;
         height: 100%;
-        width: auto;
     }
-    .event-modal .header-bg,
-    .event-modal .body-bg {
-        /* Force Hardware acceleration */
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        will-change: transform;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+    .event-form .event-info {
+        padding: 2em 3em 0em 2em;
     }
-    .event-modal .header-bg {
-        -webkit-transition: -webkit-transform 0.4s;
-        transition: -webkit-transform 0.4s;
-        transition: transform 0.4s;
-        transition: transform 0.4s, -webkit-transform 0.4s;
-        -webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
-        transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+
+    .event-name {
+        font-size: 2rem;
     }
-    .event-modal .body-bg {
-        opacity: 0;
-        -webkit-transform: none;
-        -ms-transform: none;
-        transform: none;
-    }
-    .event-modal .event-date {
-        display: block;
-    }
-    .event-modal .close,
-    .event-modal .event-info {
-        opacity: 0;
-    }
-    .event-modal .close {
+
+    /* smaller close icon on desktop */
+    .event-form .close {
         width: 40px;
         height: 40px;
         background: transparent;
     }
-    .event-modal .close::after,
-    .event-modal .close::before {
+    .event-form .close:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+    .event-form .close::after,
+    .event-form .close::before {
         background: #222222;
         height: 16px;
     }
 }
 
 @media only screen and (min-width: 1000px) {
-    .event-modal .header .content {
+    .event-form .header {
+        width: 40%;
+    }
+    .event-form .header .content {
         padding: 1.2em;
     }
 }
 
-.cd-schedule.modal-is-open .event-modal {
-    /* .modal-is-open class is added as soon as an event is selected */
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
-    visibility: visible;
-}
-
-.cd-schedule.modal-is-open .event-modal .event-info > div {
+.modal-is-visible .event-info {
     /* smooth scroll on iOS touch devices */
     -webkit-overflow-scrolling: touch;
-}
-
-@media only screen and (min-width: 800px) {
-    .cd-schedule.animation-completed .event-modal .close,
-    .cd-schedule.content-loaded.animation-completed .event-modal .event-info {
-        /* 	the .animation-completed class is added when the modal animation is completed
-              the .content-loaded class is added when the modal content has been loaded (using ajax) */
-        opacity: 1;
-        -webkit-transition: opacity 0.2s;
-        transition: opacity 0.2s;
-    }
-    .cd-schedule.modal-is-open .body-bg {
-        opacity: 1;
-        -webkit-transition: -webkit-transform 0.4s;
-        transition: -webkit-transform 0.4s;
-        transition: transform 0.4s;
-        transition: transform 0.4s, -webkit-transform 0.4s;
-        -webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
-        transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
-    }
-}
-
-.cover-layer {
-    /* layer between the content and the modal window */
-    position: fixed;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    opacity: 0;
-    visibility: hidden;
-    -webkit-transition: opacity 0.4s, visibility 0.4s;
-    transition: opacity 0.4s, visibility 0.4s;
-}
-
-.cover-layer.modal-is-visible {
-    opacity: 1;
-    visibility: visible;
 }

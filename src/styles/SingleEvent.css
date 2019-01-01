@@ -61,13 +61,7 @@
     }
 }
 
-/* .cd-schedule.loading .events .single-event { */
-/* the class .loading is added by default to the .cd-schedule element
-         it is removed as soon as the single events are placed in the schedule plan (using javascript) */
-/* opacity: 0;
-} */
-
-/* ? event name and date */
+/* event name and date */
 .event-name,
 .event-date {
     display: block;
@@ -93,42 +87,4 @@
     opacity: 0.7;
     line-height: 1.2;
     margin-bottom: 0.2em;
-}
-
-/* todo: preset event block color, need to delete */
-.single-event[data-event="event-1"],
-[data-event="event-1"] .header-bg {
-    /* this is used to set a background color for the event and the modal window */
-    background: #577f92;
-}
-
-.single-event[data-event="event-1"]:hover {
-    background: #618da1;
-}
-
-.single-event[data-event="event-2"],
-[data-event="event-2"] .header-bg {
-    background: #443453;
-}
-
-.single-event[data-event="event-2"]:hover {
-    background: #513e63;
-}
-
-.single-event[data-event="event-3"],
-[data-event="event-3"] .header-bg {
-    background: #a2b9b2;
-}
-
-.single-event[data-event="event-3"]:hover {
-    background: #b1c4be;
-}
-
-.single-event[data-event="event-4"],
-[data-event="event-4"] .header-bg {
-    background: #f6b067;
-}
-
-.single-event[data-event="event-4"]:hover {
-    background: #f7bd7f;
 }

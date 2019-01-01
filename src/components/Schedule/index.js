@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Timeline from "./Timeline.js";
 import EventsGroup from "./EventsGroup.js";
+import EventModal from "./EventModal.js";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import Tooltip from "@material-ui/core/Tooltip";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { clearError } from "../../actions/eventActions.js";
 import {
@@ -24,6 +28,15 @@ class Schedule extends Component {
         clearError: PropTypes.func
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalOpen: false,
+            eventToShowInModal: null,
+            ...this.organizeEventsByWeekday(props.events)
+        };
+    }
+
     componentDidMount() {
         console.log("Schedule initial props: ", this.props);
         // setTimeout(() => {
@@ -35,18 +48,27 @@ class Schedule extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("Schedule update props from: ", prevProps);
-        console.log("Schedule update props to: ", this.props);
+        // console.log("Schedule update props from: ", prevProps);
+        // console.log("Schedule update props to: ", this.props);
         if (this.props.error) {
             // consume error
             this.props.clearError();
+        } else if (prevProps.events !== this.props.events) {
+            // if events array changed, reorganize
+            this.setState(this.organizeEventsByWeekday(this.props.events));
         }
+        console.log("did update");
     }
 
     // return a click handler which bind a specific event for <SingleEvent />
     openModalWithEvent = event => e => {
         e.preventDefault();
-        console.log(event.description);
+        this.setState({ isModalOpen: true, eventToShowInModal: event });
+    };
+
+    closeModal = event => {
+        if (event) event.preventDefault();
+        this.setState({ isModalOpen: false });
     };
 
     // Iterate through given events array and organize it to a 2-D array by weekday.
@@ -83,7 +105,17 @@ class Schedule extends Component {
                 eventsByWeekday[weekday].push(event);
             }
         }
-        return { eventsByWeekday, timelineFrom, timelineTo };
+
+        const eventsGroupUlHeight = this.computeEventsGroupUlHeight(
+            timelineFrom,
+            timelineTo
+        );
+        return {
+            eventsByWeekday,
+            timelineFrom,
+            timelineTo,
+            eventsGroupUlHeight
+        };
     };
 
     // compute Timeline's ul tag css height and return the corresponding css height for EventsGroup's events ul tag css height
@@ -98,13 +130,10 @@ class Schedule extends Component {
         const {
             eventsByWeekday,
             timelineFrom,
-            timelineTo
-        } = this.organizeEventsByWeekday(this.props.events);
+            timelineTo,
+            eventsGroupUlHeight
+        } = this.state;
 
-        const eventsGroupUlHeight = this.computeEventsGroupUlHeight(
-            timelineFrom,
-            timelineTo
-        );
         return (
             <div className="cd-schedule">
                 {// spinner conditional rendering
@@ -132,6 +161,32 @@ class Schedule extends Component {
                         ))}
                     </ul>
                 </div>
+                {/* Add event button from material ui */}
+                <Tooltip
+                    title="Add Event"
+                    placement="top"
+                    aria-label="Add Event"
+                >
+                    <Fab
+                        color="secondary"
+                        aria-label="Add"
+                        style={{
+                            position: "fixed",
+                            right: "40px",
+                            bottom: "35px",
+                            zIndex: 2,
+                            width: "70px",
+                            height: "70px"
+                        }}
+                    >
+                        <AddIcon style={{ width: "30px", height: "30px" }} />
+                    </Fab>
+                </Tooltip>
+                <EventModal
+                    closeModal={this.closeModal}
+                    isModalOpen={this.state.isModalOpen}
+                    eventToShow={this.state.eventToShowInModal}
+                />
             </div>
         );
     }
