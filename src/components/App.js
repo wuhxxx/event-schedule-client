@@ -17,6 +17,8 @@ import Schedule from "./Schedule";
 import "react-toastify/dist/ReactToastify.min.css";
 import "../styles/App.css";
 
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
 const middlewares = [thunk];
 
 const store = createStore(
