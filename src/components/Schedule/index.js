@@ -7,6 +7,7 @@ import EventModal from "./EventModal.js";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Tooltip from "@material-ui/core/Tooltip";
+import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { clearError } from "../../actions/eventActions.js";
 import {
@@ -18,6 +19,22 @@ import {
 } from "../../constants";
 
 import "../../styles/Schedule.css";
+
+// styled material ui tooltip and fab
+const StyledTooltip = withStyles({
+    tooltip: { fontSize: 13 }
+})(Tooltip);
+
+const StyledFab = withStyles({
+    root: {
+        position: "fixed",
+        right: "40px",
+        bottom: "35px",
+        zIndex: 2,
+        width: "70px",
+        height: "70px"
+    }
+})(Fab);
 
 class Schedule extends Component {
     static propTypes = {
@@ -32,6 +49,7 @@ class Schedule extends Component {
         super(props);
         this.state = {
             isModalOpen: false,
+            isEditMode: false,
             eventToShowInModal: null,
             ...this.organizeEventsByWeekday(props.events)
         };
@@ -57,18 +75,27 @@ class Schedule extends Component {
             // if events array changed, reorganize
             this.setState(this.organizeEventsByWeekday(this.props.events));
         }
-        console.log("did update");
     }
 
     // return a click handler which bind a specific event for <SingleEvent />
     openModalWithEvent = event => e => {
         e.preventDefault();
-        this.setState({ isModalOpen: true, eventToShowInModal: event });
+        this.setState({
+            isModalOpen: true,
+            isEditMode: false,
+            eventToShowInModal: event
+        });
     };
 
     closeModal = event => {
         if (event) event.preventDefault();
         this.setState({ isModalOpen: false });
+    };
+
+    addButtonClickHandler = event => {
+        event.preventDefault();
+        event.stopPropagation();
+        this.setState({ isModalOpen: true, isEditMode: true });
     };
 
     // Iterate through given events array and organize it to a 2-D array by weekday.
@@ -106,10 +133,11 @@ class Schedule extends Component {
             }
         }
 
-        const eventsGroupUlHeight = this.computeEventsGroupUlHeight(
-            timelineFrom,
-            timelineTo
-        );
+        // compute EventsGroup's events <ul> css height
+        const eventsGroupUlHeight =
+            Math.ceil((timelineTo - timelineFrom) / TIMELINE_UNIT_DURATION) *
+            EVENT_SLOT_HEIGHT;
+
         return {
             eventsByWeekday,
             timelineFrom,
@@ -118,16 +146,11 @@ class Schedule extends Component {
         };
     };
 
-    // compute Timeline's ul tag css height and return the corresponding css height for EventsGroup's events ul tag css height
-    computeEventsGroupUlHeight = (timelineFrom, timelineTo) => {
-        return (
-            Math.ceil((timelineTo - timelineFrom) / TIMELINE_UNIT_DURATION) *
-            EVENT_SLOT_HEIGHT
-        );
-    };
-
     render() {
         const {
+            isEditMode,
+            isModalOpen,
+            eventToShowInModal,
             eventsByWeekday,
             timelineFrom,
             timelineTo,
@@ -161,31 +184,25 @@ class Schedule extends Component {
                         ))}
                     </ul>
                 </div>
-                {/* Add event button from material ui */}
-                <Tooltip
+                {/* Add event button */}
+                <StyledTooltip
                     title="Add Event"
                     placement="top"
                     aria-label="Add Event"
                 >
-                    <Fab
+                    <StyledFab
                         color="secondary"
                         aria-label="Add"
-                        style={{
-                            position: "fixed",
-                            right: "40px",
-                            bottom: "35px",
-                            zIndex: 2,
-                            width: "70px",
-                            height: "70px"
-                        }}
+                        onClick={this.addButtonClickHandler}
                     >
                         <AddIcon style={{ width: "30px", height: "30px" }} />
-                    </Fab>
-                </Tooltip>
+                    </StyledFab>
+                </StyledTooltip>
                 <EventModal
                     closeModal={this.closeModal}
-                    isModalOpen={this.state.isModalOpen}
-                    eventToShow={this.state.eventToShowInModal}
+                    isEditMode={isEditMode}
+                    isModalOpen={isModalOpen}
+                    eventToShow={eventToShowInModal}
                 />
             </div>
         );
