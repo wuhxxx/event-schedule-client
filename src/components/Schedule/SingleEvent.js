@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import toTimeString from "../../utils/toTimeString.js";
+import { toTimeString } from "../../utils/timeConverters.js";
 import { toHexColor } from "../../utils/colorConverters.js";
 import {
     EVENT_SLOT_HEIGHT,

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import toTimeString from "../../utils/toTimeString.js";
+import { toTimeString } from "../../utils/timeConverters.js";
 import { TIMELINE_UNIT_DURATION } from "../../constants";
 import "../../styles/Timeline.css";
 
