@@ -24,6 +24,33 @@ export const WEEK_DAYS = [
     "Thursday",
     "Friday"
 ];
+// default event info
+export const DEFAULT_EVENT = {
+    title: "", // string, required
+    location: "", // string
+    description: "", // string
+    color: 6911625, // number, required
+    startAt: 9 * 60, // number, required
+    endAt: 9 * 60 + 30, // number, required
+    weekday: 0 // number, required
+};
+// color choices of color picker
+export const COLOR_CHOICES = [
+    "#0097A7",
+    "#0693E3",
+    "#443453",
+    "#555555",
+    "#577F92",
+    "#697689",
+    "#7BDCB5",
+    "#8ED1FC",
+    "#A2B9B2",
+    "#AFB42B",
+    "#F6B067",
+    "#F57F17",
+    "#F78DA7",
+    "#E64A19"
+];
 
 /********************** TopBar related constants **********************/
 // login modal states
