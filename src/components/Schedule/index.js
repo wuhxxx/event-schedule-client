@@ -55,19 +55,7 @@ class Schedule extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log("Schedule initial props: ", this.props);
-        // setTimeout(() => {
-        //     this.setState({ isLoadingEvents: true });
-        // }, 3000);
-        // setTimeout(() => {
-        //     this.setState({ isLoadingEvents: false });
-        // }, 6000);
-    }
-
     componentDidUpdate(prevProps) {
-        // console.log("Schedule update props from: ", prevProps);
-        // console.log("Schedule update props to: ", this.props);
         if (this.props.error) {
             // consume error
             this.props.clearError();
@@ -87,6 +75,10 @@ class Schedule extends Component {
         });
     };
 
+    setIsEditMode = (isEditMode = false) => {
+        this.setState({ isEditMode });
+    };
+
     closeModal = event => {
         if (event) event.preventDefault();
         this.setState({ isModalOpen: false });
@@ -95,7 +87,11 @@ class Schedule extends Component {
     addButtonClickHandler = event => {
         event.preventDefault();
         event.stopPropagation();
-        this.setState({ isModalOpen: true, isEditMode: true });
+        this.setState({
+            isModalOpen: true,
+            isEditMode: true,
+            eventToShowInModal: null
+        });
     };
 
     // Iterate through given events array and organize it to a 2-D array by weekday.
@@ -203,6 +199,7 @@ class Schedule extends Component {
                     isEditMode={isEditMode}
                     isModalOpen={isModalOpen}
                     eventToShow={eventToShowInModal}
+                    setIsEditMode={this.setIsEditMode}
                 />
             </div>
         );
