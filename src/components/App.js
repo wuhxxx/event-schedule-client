@@ -52,6 +52,7 @@ class App extends Component {
                     <ToastContainer
                         position={toast.POSITION.TOP_CENTER}
                         autoClose={3500}
+                        toastClassName="toast"
                         hideProgressBar={false}
                         newestOnTop={false}
                         closeOnClick

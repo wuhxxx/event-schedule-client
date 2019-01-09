@@ -31,9 +31,8 @@
     }
 }
 
-/* react toastify css */
-.toast-content {
-    display: flex;
-    align-items: center;
+/* react toastify, toast style */
+.toast {
     font-family: "PT Sans", sans-serif;
+    text-align: center;
 }
