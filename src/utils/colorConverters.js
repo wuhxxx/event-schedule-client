@@ -40,7 +40,7 @@ export const toDecimal = hexColor => {
         return 0;
     }
     // get rid of '#' prefix and parse to integer
-    const value = hexColor.slice(1).parseInt(hexColor, 16);
+    const value = parseInt(hexColor.slice(1), 16);
     // check if value is NaN, which indicates given input is not a hex color string
     if (Number.isNaN(value)) {
         console.warn(

@@ -22,5 +22,5 @@ export function toNumOfMinutes(timeString) {
     if (arr.length !== 2)
         return new Error("Invalid input for toNumberOfMinutes()");
 
-    return arr[0] * 60 + arr[1];
+    return parseInt(arr[0]) * 60 + parseInt(arr[1]);
 }
