@@ -87,7 +87,9 @@ export default class ResetForm extends Component {
 
     render() {
         const emailValue = this.state[EMAIL],
-            emailError = this.state[EMAIL_ERROR];
+            emailError = this.state[EMAIL_ERROR],
+            isWaitingApi = this.state.isWaitingApi;
+        const { openModalWithForm } = this.props;
         return (
             <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
                 <p className="cd-signin-modal__message">
@@ -125,9 +127,10 @@ export default class ResetForm extends Component {
                         <input
                             className="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding"
                             type="submit"
+                            disabled={isWaitingApi}
                             // origin: value="Reset password"
                             value={
-                                this.state.isWaitingApi
+                                isWaitingApi
                                     ? "Waiting response..."
                                     : "Reset account"
                             }
@@ -137,9 +140,7 @@ export default class ResetForm extends Component {
                 <p className="cd-signin-modal__bottom-message">
                     <a
                         href="#0"
-                        onClick={this.props.openModalWithForm(
-                            LOGINMODAL_FORM_SIGNIN
-                        )}
+                        onClick={openModalWithForm(LOGINMODAL_FORM_SIGNIN)}
                     >
                         Back to log-in
                     </a>

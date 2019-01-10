@@ -28,8 +28,7 @@ const termsNoticeCloseDelay = 1000;
 class SignupForm extends Component {
     static propTypes = {
         closeModal: PropTypes.func,
-        openModalWithForm: PropTypes.func,
-        signUserIn: PropTypes.func
+        signUserIn: PropTypes.func.isRequired
     };
 
     state = {
@@ -141,9 +140,8 @@ class SignupForm extends Component {
             emailValue = this.state[EMAIL],
             emailError = this.state[EMAIL_ERROR],
             passwordValue = this.state[PASSWORD],
-            passwordError = this.state[PASSWORD_ERROR],
-            isPasswordHidden = this.state.isPasswordHidden;
-
+            passwordError = this.state[PASSWORD_ERROR];
+        const { isPasswordHidden, isWaitingApi } = this.state;
         return (
             <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
                 <form
@@ -259,6 +257,7 @@ class SignupForm extends Component {
                         <input
                             className="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding"
                             type="submit"
+                            disabled={isWaitingApi}
                             value={
                                 this.state.isWaitingApi
                                     ? "Waiting response..."

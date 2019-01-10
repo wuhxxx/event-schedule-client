@@ -122,9 +122,9 @@ class SigninForm extends Component {
         const emailValue = this.state[EMAIL],
             emailError = this.state[EMAIL_ERROR],
             passwordValue = this.state[PASSWORD],
-            passwordError = this.state[PASSWORD_ERROR],
-            isPasswordHidden = this.state.isPasswordHidden;
-
+            passwordError = this.state[PASSWORD_ERROR];
+        const { isPasswordHidden, isWaitingApi } = this.state;
+        const { openModalWithForm } = this.props;
         return (
             <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
                 <form
@@ -196,6 +196,7 @@ class SigninForm extends Component {
                         <input
                             className="cd-signin-modal__input cd-signin-modal__input--full-width"
                             type="submit"
+                            disabled={isWaitingApi}
                             value={
                                 this.state.isWaitingApi
                                     ? "Waiting response..."
@@ -208,9 +209,7 @@ class SigninForm extends Component {
                 <p className="cd-signin-modal__bottom-message">
                     <a
                         href="#0"
-                        onClick={this.props.openModalWithForm(
-                            LOGINMODAL_FORM_RESET
-                        )}
+                        onClick={openModalWithForm(LOGINMODAL_FORM_RESET)}
                     >
                         reset account
                     </a>

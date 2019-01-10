@@ -158,6 +158,12 @@ a {
     outline: none;
 }
 
+.cd-signin-modal__input[type="submit"]:disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.26);
+    cursor: default;
+}
+
 .cd-signin-modal__hide-password {
     display: inline-block;
     position: absolute;
