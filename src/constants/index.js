@@ -54,9 +54,9 @@ export const COLOR_CHOICES = [
 
 /********************** TopBar related constants **********************/
 // login modal states
-export const LOGINMODAL_FORM_SIGNIN = "Signin";
-export const LOGINMODAL_FORM_RESET = "Reset";
-export const LOGINMODAL_FORM_SIGNUP = "Signup";
+export const SIGNIN_FORM = "Signin";
+export const RESET_FORM = "Reset";
+export const SIGNUP_FORM = "Signup";
 // login/signup form input fields
 export const USERNAME = "username";
 export const EMAIL = "email";
