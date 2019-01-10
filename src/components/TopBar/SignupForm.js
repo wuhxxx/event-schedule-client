@@ -143,135 +143,137 @@ class SignupForm extends Component {
             passwordError = this.state[PASSWORD_ERROR];
         const { isPasswordHidden, isWaitingApi } = this.state;
         return (
-            <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
-                <form
-                    className="cd-signin-modal__form"
-                    onSubmit={this.handleSubmit}
-                >
-                    <p className="cd-signin-modal__fieldset">
-                        <label
-                            className="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace"
-                            htmlFor="signup-username"
-                        >
-                            Username
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="Username"
-                            name={USERNAME}
-                            value={usernameValue}
-                            onChange={this.handleInputValueChange}
-                            className={this.toggleInputClassBy(usernameError)}
-                        />
-                        <span className={this.toggleSpanClassBy(usernameError)}>
-                            {usernameError}
-                        </span>
-                    </p>
+            <form
+                className="cd-signin-modal__form"
+                onSubmit={this.handleSubmit}
+            >
+                <p className="cd-signin-modal__fieldset">
+                    <label
+                        className="cd-signin-modal__label cd-signin-modal__label--username cd-signin-modal__label--image-replace"
+                        htmlFor="signup-username"
+                    >
+                        Username
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        name={USERNAME}
+                        value={usernameValue}
+                        onChange={this.handleInputValueChange}
+                        className={this.toggleInputClassBy(usernameError)}
+                    />
+                    <span className={this.toggleSpanClassBy(usernameError)}>
+                        {usernameError}
+                    </span>
+                </p>
 
-                    <p className="cd-signin-modal__fieldset">
-                        <label
-                            className="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
-                            htmlFor="signup-email"
-                        >
-                            E-mail
-                        </label>
-                        <input
-                            id="signup-email"
-                            type="email"
-                            placeholder="E-mail"
-                            name={EMAIL}
-                            value={emailValue}
-                            onChange={this.handleInputValueChange}
-                            className={this.toggleInputClassBy(emailError)}
-                        />
-                        <span className={this.toggleSpanClassBy(emailError)}>
-                            {emailError}
-                        </span>
-                    </p>
+                <p className="cd-signin-modal__fieldset">
+                    <label
+                        className="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                        htmlFor="signup-email"
+                    >
+                        E-mail
+                    </label>
+                    <input
+                        id="signup-email"
+                        type="email"
+                        placeholder="E-mail"
+                        name={EMAIL}
+                        value={emailValue}
+                        onChange={this.handleInputValueChange}
+                        className={this.toggleInputClassBy(emailError)}
+                    />
+                    <span className={this.toggleSpanClassBy(emailError)}>
+                        {emailError}
+                    </span>
+                </p>
 
-                    <p className="cd-signin-modal__fieldset">
-                        <label
-                            className="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace"
-                            htmlFor="signup-password"
-                        >
-                            Password
-                        </label>
-                        <input
-                            id="signup-password"
-                            placeholder="Password"
-                            name={PASSWORD}
-                            value={passwordValue}
-                            onChange={this.handleInputValueChange}
-                            type={isPasswordHidden ? "password" : "text"}
-                            className={this.toggleInputClassBy(passwordError)}
-                        />
-                        <a
-                            href="#0"
-                            className="cd-signin-modal__hide-password js-hide-password"
-                            onClick={this.toggleHidePassword}
-                        >
-                            {isPasswordHidden ? "Show" : "Hide"}
-                        </a>
-                        <span className={this.toggleSpanClassBy(passwordError)}>
-                            {passwordError}
-                        </span>
-                    </p>
+                <p className="cd-signin-modal__fieldset">
+                    <label
+                        className="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace"
+                        htmlFor="signup-password"
+                    >
+                        Password
+                    </label>
+                    <input
+                        id="signup-password"
+                        placeholder="Password"
+                        name={PASSWORD}
+                        value={passwordValue}
+                        onChange={this.handleInputValueChange}
+                        type={isPasswordHidden ? "password" : "text"}
+                        className={this.toggleInputClassBy(passwordError)}
+                    />
+                    <a
+                        href="#0"
+                        className="cd-signin-modal__hide-password js-hide-password"
+                        onClick={this.toggleHidePassword}
+                    >
+                        {isPasswordHidden ? "Show" : "Hide"}
+                    </a>
+                    <span className={this.toggleSpanClassBy(passwordError)}>
+                        {passwordError}
+                    </span>
+                </p>
 
-                    <p className="cd-signin-modal__fieldset">
-                        <input
-                            type="checkbox"
-                            id="accept-terms"
-                            className="cd-signin-modal__input"
-                            ref={ele => (this.checkBox = ele)}
-                        />
-                        <label
-                            htmlFor="accept-terms"
-                            className="checkBox-label"
-                            ref={ele => (this.lable = ele)}
-                        >
-                            I agree to the{" "}
-                            <span
-                                className="signup-form-terms"
-                                onMouseOver={() => {
-                                    this.setState({ isTermsShown: true });
-                                }}
-                                onMouseOut={() => {
-                                    setTimeout(() => {
-                                        this.setState({ isTermsShown: false });
-                                    }, termsCloseDelayOnHover);
-                                }}
-                            >
-                                Terms
-                            </span>
-                        </label>
+                <p className="cd-signin-modal__fieldset">
+                    <input
+                        type="checkbox"
+                        id="accept-terms"
+                        className="cd-signin-modal__input"
+                        ref={ele => (this.checkBox = ele)}
+                    />
+                    <label
+                        htmlFor="accept-terms"
+                        className="checkBox-label"
+                        ref={ele => (this.lable = ele)}
+                    >
+                        I agree to the{" "}
                         <span
-                            className={this.toggleTermsDetailsClassBy(
-                                this.state.isTermsShown
-                            )}
+                            className="signup-form-terms"
+                            onMouseOver={() => {
+                                this.setState({ isTermsShown: true });
+                            }}
+                            onMouseOut={() => {
+                                setTimeout(() => {
+                                    this.setState({ isTermsShown: false });
+                                }, termsCloseDelayOnHover);
+                            }}
                         >
-                            {terms}
+                            Terms
                         </span>
-                    </p>
+                    </label>
+                    <span
+                        className={this.toggleTermsDetailsClassBy(
+                            this.state.isTermsShown
+                        )}
+                    >
+                        {terms}
+                    </span>
+                </p>
 
-                    <p className="cd-signin-modal__fieldset">
-                        <input
-                            className="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding"
-                            type="submit"
-                            disabled={isWaitingApi}
-                            value={
-                                this.state.isWaitingApi
-                                    ? "Waiting response..."
-                                    : "Create account"
-                            }
-                        />
-                    </p>
-                </form>
-            </div>
+                <p className="cd-signin-modal__fieldset">
+                    <input
+                        className="cd-signin-modal__input cd-signin-modal__input--full-width cd-signin-modal__input--has-padding"
+                        type="submit"
+                        disabled={isWaitingApi}
+                        value={
+                            this.state.isWaitingApi
+                                ? "Waiting response..."
+                                : "Create account"
+                        }
+                    />
+                </p>
+            </form>
         );
     }
 }
 
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = { signUserIn };
+
 export default connect(
-    null,
-    { signUserIn }
+    mapStateToProps,
+    mapDispatchToProps
 )(SignupForm);

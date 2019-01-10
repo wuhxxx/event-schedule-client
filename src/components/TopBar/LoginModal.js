@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import {
-    LOGINMODAL_FORM_SIGNIN,
-    LOGINMODAL_FORM_RESET,
-    LOGINMODAL_FORM_SIGNUP
-} from "../../constants";
+import { SIGNIN_FORM, RESET_FORM, SIGNUP_FORM } from "../../constants";
 import SigninForm from "./SigninForm.js";
 import SignupForm from "./SignupForm.js";
 import ResetForm from "./ResetForm.js";
@@ -51,31 +47,31 @@ export default class LoginModal extends Component {
             openModalWithForm
         } = this.props;
 
-        const signinForm = (
-            <SigninForm
-                openModalWithForm={openModalWithForm}
-                closeModal={closeModal}
-            />
-        );
+        // enums object for conditional rendering forms
+        const userForms = {
+            [RESET_FORM]: <ResetForm closeModal={this.props.closeModal} />,
+            [SIGNIN_FORM]: <SigninForm closeModal={this.props.closeModal} />,
+            [SIGNUP_FORM]: <SignupForm closeModal={this.props.closeModal} />
+        };
 
-        const signupForm = (
-            <SignupForm
-                openModalWithForm={openModalWithForm}
-                closeModal={closeModal}
-            />
-        );
-
-        const resetForm = (
-            <ResetForm
-                openModalWithForm={openModalWithForm}
-                closeModal={closeModal}
-            />
-        );
-
-        // select which form to render, default signin form
-        let formToRender = signinForm;
-        if (formToOpen === LOGINMODAL_FORM_SIGNUP) formToRender = signupForm;
-        else if (formToOpen === LOGINMODAL_FORM_RESET) formToRender = resetForm;
+        // enums object for conditional rendering bottom links
+        const bottomLinks = {
+            [RESET_FORM]: (
+                <p className="cd-signin-modal__bottom-message">
+                    <a href="#0" onClick={openModalWithForm(SIGNIN_FORM)}>
+                        Back to log-in
+                    </a>
+                </p>
+            ),
+            [SIGNIN_FORM]: (
+                <p className="cd-signin-modal__bottom-message">
+                    <a href="#0" onClick={openModalWithForm(RESET_FORM)}>
+                        reset account
+                    </a>
+                </p>
+            ),
+            [SIGNUP_FORM]: null
+        };
 
         return ReactDOM.createPortal(
             <div
@@ -99,11 +95,9 @@ export default class LoginModal extends Component {
                         <li>
                             <a
                                 href="#0"
-                                onClick={openModalWithForm(
-                                    LOGINMODAL_FORM_SIGNIN
-                                )}
+                                onClick={openModalWithForm(SIGNIN_FORM)}
                                 className={
-                                    formToOpen !== LOGINMODAL_FORM_SIGNUP
+                                    formToOpen !== SIGNUP_FORM
                                         ? "cd-selected"
                                         : ""
                                 }
@@ -114,11 +108,9 @@ export default class LoginModal extends Component {
                         <li>
                             <a
                                 href="#0"
-                                onClick={openModalWithForm(
-                                    LOGINMODAL_FORM_SIGNUP
-                                )}
+                                onClick={openModalWithForm(SIGNUP_FORM)}
                                 className={
-                                    formToOpen === LOGINMODAL_FORM_SIGNUP
+                                    formToOpen === SIGNUP_FORM
                                         ? "cd-selected"
                                         : ""
                                 }
@@ -127,9 +119,19 @@ export default class LoginModal extends Component {
                             </a>
                         </li>
                     </ul>
-
-                    {formToRender}
-
+                    {/* user form block */}
+                    <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
+                        {// top message for reset form
+                        formToOpen === RESET_FORM && (
+                            <p className="cd-signin-modal__message">
+                                Lost your password? Please enter your email
+                                address. Your account will be reset.
+                            </p>
+                        )}
+                        {userForms[formToOpen]}
+                        {bottomLinks[formToOpen]}
+                    </div>
+                    {/* close modal anchor */}
                     <a
                         href="#0"
                         className="cd-signin-modal__close"

@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import LoginModal from "./LoginModal.js";
-import {
-    LOGINMODAL_FORM_RESET,
-    LOGINMODAL_FORM_SIGNIN,
-    LOGINMODAL_FORM_SIGNUP
-} from "../../constants";
+import { RESET_FORM, SIGNIN_FORM, SIGNUP_FORM } from "../../constants";
 import { logUserOut } from "../../actions/userActions.js";
 import { toast } from "react-toastify";
 import classTogglerBuilder from "../../utils/classTogglerBuilder.js";
@@ -24,7 +20,7 @@ class TopBar extends Component {
     state = {
         isNavListVisible: false,
         isModalOpen: false,
-        formToOpen: LOGINMODAL_FORM_SIGNIN
+        formToOpen: SIGNIN_FORM
     };
 
     // if width of web page is more than 768px,
@@ -56,11 +52,11 @@ class TopBar extends Component {
             event.preventDefault();
             event.stopPropagation();
         }
-        // make sure formToOpen is one of three defined forms
+        // make sure formToOpen is one of three pre-defined forms
         if (
-            formToOpen === LOGINMODAL_FORM_RESET ||
-            formToOpen === LOGINMODAL_FORM_SIGNIN ||
-            formToOpen === LOGINMODAL_FORM_SIGNUP
+            formToOpen === RESET_FORM ||
+            formToOpen === SIGNIN_FORM ||
+            formToOpen === SIGNUP_FORM
         )
             this.setState({ isModalOpen: true, formToOpen });
         else return;
@@ -110,7 +106,7 @@ class TopBar extends Component {
                                         className="cd-main-nav__item cd-main-nav__item--signin"
                                         href="#0"
                                         onClick={this.openModalWithForm(
-                                            LOGINMODAL_FORM_SIGNIN
+                                            SIGNIN_FORM
                                         )}
                                     >
                                         Sign in
@@ -131,7 +127,7 @@ class TopBar extends Component {
                                         className="cd-main-nav__item cd-main-nav__item--signup"
                                         href="#0"
                                         onClick={this.openModalWithForm(
-                                            LOGINMODAL_FORM_SIGNUP
+                                            SIGNUP_FORM
                                         )}
                                     >
                                         Sign up

@@ -22,41 +22,6 @@ a {
     padding: 1.4em;
 }
 
-.cd-signin-modal__message {
-    padding: 1.4em 1.4em 0;
-    font-size: 1.4rem;
-    line-height: 1.4;
-    text-align: center;
-}
-
-@media only screen and (min-width: 600px) {
-    .cd-signin-modal__message {
-        padding: 2em 2em 0;
-    }
-}
-
-.cd-signin-modal__bottom-message {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: -30px;
-    text-align: center;
-    font-size: 1.4rem;
-}
-
-.cd-signin-modal__bottom-message a {
-    color: #fff;
-    text-decoration: underline;
-}
-
-.cd-signin-modal__block {
-    display: none;
-}
-
-.cd-signin-modal__block.cd-signin-modal__block--is-selected {
-    display: block;
-}
-
 .cd-signin-modal__fieldset {
     position: relative;
     margin: 1.4em 0;

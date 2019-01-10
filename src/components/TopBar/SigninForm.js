@@ -7,7 +7,6 @@ import { signUserIn } from "../../actions/userActions.js";
 import classTogglerBuilder from "../../utils/classTogglerBuilder.js";
 import { userFormInputValidators } from "../../utils/validators.js";
 import {
-    LOGINMODAL_FORM_RESET,
     EMAIL,
     EMAIL_ERROR,
     PASSWORD,
@@ -21,7 +20,6 @@ import "../../styles/UserForm.css";
 class SigninForm extends Component {
     static propTypes = {
         closeModal: PropTypes.func,
-        openModalWithForm: PropTypes.func,
         signUserIn: PropTypes.func
     };
 
@@ -124,102 +122,94 @@ class SigninForm extends Component {
             passwordValue = this.state[PASSWORD],
             passwordError = this.state[PASSWORD_ERROR];
         const { isPasswordHidden, isWaitingApi } = this.state;
-        const { openModalWithForm } = this.props;
         return (
-            <div className="cd-signin-modal__block cd-signin-modal__block--is-selected">
-                <form
-                    className="cd-signin-modal__form"
-                    onSubmit={this.handleSubmit}
-                >
-                    <p className="cd-signin-modal__fieldset">
-                        <label
-                            className="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
-                            htmlFor="signin-email"
-                        >
-                            E-mail
-                        </label>
-                        <input
-                            id="signin-email"
-                            type="email"
-                            placeholder="E-mail"
-                            name={EMAIL}
-                            value={emailValue}
-                            onChange={this.handleInputValueChange}
-                            className={this.toggleInputClassBy(emailError)}
-                        />
-                        <span className={this.toggleSpanClassBy(emailError)}>
-                            {emailError}
-                        </span>
-                    </p>
+            <form
+                className="cd-signin-modal__form"
+                onSubmit={this.handleSubmit}
+            >
+                <p className="cd-signin-modal__fieldset">
+                    <label
+                        className="cd-signin-modal__label cd-signin-modal__label--email cd-signin-modal__label--image-replace"
+                        htmlFor="signin-email"
+                    >
+                        E-mail
+                    </label>
+                    <input
+                        id="signin-email"
+                        type="email"
+                        placeholder="E-mail"
+                        name={EMAIL}
+                        value={emailValue}
+                        onChange={this.handleInputValueChange}
+                        className={this.toggleInputClassBy(emailError)}
+                    />
+                    <span className={this.toggleSpanClassBy(emailError)}>
+                        {emailError}
+                    </span>
+                </p>
 
-                    <p className="cd-signin-modal__fieldset">
-                        <label
-                            className="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace"
-                            htmlFor="signin-password"
-                        >
-                            Password
-                        </label>
-                        <input
-                            id="signin-password"
-                            placeholder="Password"
-                            name={PASSWORD}
-                            value={passwordValue}
-                            onChange={this.handleInputValueChange}
-                            type={isPasswordHidden ? "password" : "text"}
-                            className={this.toggleInputClassBy(passwordError)}
-                        />
-                        <a
-                            href="#0"
-                            className="cd-signin-modal__hide-password js-hide-password"
-                            onClick={this.toggleHidePassword}
-                        >
-                            {isPasswordHidden ? "Show" : "Hide"}
-                        </a>
-                        <span className={this.toggleSpanClassBy(passwordError)}>
-                            {passwordError}
-                        </span>
-                    </p>
-
-                    <p className="cd-signin-modal__fieldset">
-                        <input
-                            type="checkbox"
-                            id="remember-me"
-                            className="cd-signin-modal__input"
-                            ref={ele => (this.checkBox = ele)}
-                        />
-                        <label htmlFor="remember-me" className="checkBox-label">
-                            Remember me
-                        </label>
-                    </p>
-
-                    <p className="cd-signin-modal__fieldset">
-                        <input
-                            className="cd-signin-modal__input cd-signin-modal__input--full-width"
-                            type="submit"
-                            disabled={isWaitingApi}
-                            value={
-                                this.state.isWaitingApi
-                                    ? "Waiting response..."
-                                    : "Login"
-                            }
-                        />
-                    </p>
-                </form>
-                {/* bottom message, reset form entry */}
-                <p className="cd-signin-modal__bottom-message">
+                <p className="cd-signin-modal__fieldset">
+                    <label
+                        className="cd-signin-modal__label cd-signin-modal__label--password cd-signin-modal__label--image-replace"
+                        htmlFor="signin-password"
+                    >
+                        Password
+                    </label>
+                    <input
+                        id="signin-password"
+                        placeholder="Password"
+                        name={PASSWORD}
+                        value={passwordValue}
+                        onChange={this.handleInputValueChange}
+                        type={isPasswordHidden ? "password" : "text"}
+                        className={this.toggleInputClassBy(passwordError)}
+                    />
                     <a
                         href="#0"
-                        onClick={openModalWithForm(LOGINMODAL_FORM_RESET)}
+                        className="cd-signin-modal__hide-password js-hide-password"
+                        onClick={this.toggleHidePassword}
                     >
-                        reset account
+                        {isPasswordHidden ? "Show" : "Hide"}
                     </a>
+                    <span className={this.toggleSpanClassBy(passwordError)}>
+                        {passwordError}
+                    </span>
                 </p>
-            </div>
+
+                <p className="cd-signin-modal__fieldset">
+                    <input
+                        type="checkbox"
+                        id="remember-me"
+                        className="cd-signin-modal__input"
+                        ref={ele => (this.checkBox = ele)}
+                    />
+                    <label htmlFor="remember-me" className="checkBox-label">
+                        Remember me
+                    </label>
+                </p>
+
+                <p className="cd-signin-modal__fieldset">
+                    <input
+                        className="cd-signin-modal__input cd-signin-modal__input--full-width"
+                        type="submit"
+                        disabled={isWaitingApi}
+                        value={
+                            this.state.isWaitingApi
+                                ? "Waiting response..."
+                                : "Login"
+                        }
+                    />
+                </p>
+            </form>
         );
     }
 }
 
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = { signUserIn };
+
 export default connect(
-    null,
-    { signUserIn }
+    mapStateToProps,
+    mapDispatchToProps
 )(SigninForm);
