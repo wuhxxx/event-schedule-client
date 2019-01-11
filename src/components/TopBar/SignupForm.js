@@ -107,15 +107,15 @@ class SignupForm extends Component {
         axios
             .post(`${USER_API_ROUTE}/signup`, newUser)
             .then(res => {
-                // console.log(res);
                 console.log(res.data.data);
-                toast.info("🎉 You are logged in!");
                 this.setState({ isWaitingApi: false });
                 this.props.closeModal();
+                toast.info("🎉 You are logged in!");
                 // dispatch signin action, remember user by default
                 this.props.signUserIn(res.data.data, true);
             })
             .catch(err => {
+                this.setState({ isWaitingApi: false });
                 if (err.response) {
                     const errorRes = err.response.data.error;
                     console.log(errorRes);
@@ -128,9 +128,8 @@ class SignupForm extends Component {
                 } else {
                     // network error
                     console.log(err);
-                    toast.warn("😱 Something wrong with the connection");
+                    toast.warn("😱 Connection to server failed");
                 }
-                this.setState({ isWaitingApi: false });
             });
     };
 

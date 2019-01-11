@@ -78,22 +78,21 @@ class SigninForm extends Component {
             }
             user[fields[i]] = input;
         }
-        console.log(user);
         // set state to indicate waiting api response
         this.setState({ isWaitingApi: true });
         // make a request to api
         axios
             .post(`${USER_API_ROUTE}/login`, user)
             .then(res => {
-                // console.log(res);
                 console.log(res.data.data);
-                toast.info("🎉 You are logged in!");
                 this.setState({ isWaitingApi: false });
                 this.props.closeModal();
+                toast.info("🎉 You are logged in!");
                 // dispatch signin action
                 this.props.signUserIn(res.data.data, this.checkBox.checked);
             })
             .catch(err => {
+                this.setState({ isWaitingApi: false });
                 if (err.response) {
                     const errorRes = err.response.data.error;
                     console.log(errorRes);
@@ -110,9 +109,8 @@ class SigninForm extends Component {
                 } else {
                     // network error
                     console.log(err);
-                    toast.warn("😱 Something wrong with the connection");
+                    toast.warn("😱 Connection to server failed");
                 }
-                this.setState({ isWaitingApi: false });
             });
     };
 

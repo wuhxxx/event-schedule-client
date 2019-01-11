@@ -63,12 +63,15 @@ class ResetForm extends Component {
             .delete(`${USER_API_ROUTE}`, { data: { email: emailInput } })
             .then(res => {
                 console.log(res);
-                toast.warn("☠️ Account deleted!");
+                this.setState({ isWaitingApi: false });
                 this.props.closeModal();
+                toast.warn("☠️ Account deleted!");
             })
             .catch(err => {
+                this.setState({ isWaitingApi: false });
                 if (err.response) {
                     const errorRes = err.response.data.error;
+                    console.log(errorRes);
                     if (errorRes.name === USER_ERRORS.UserNotFound)
                         this.setState({
                             [EMAIL_ERROR]: "Cannot find account with this email"
@@ -76,9 +79,8 @@ class ResetForm extends Component {
                 } else {
                     // network error
                     console.log(err);
-                    toast.warn("😱 Something wrong with the connection.");
+                    toast.warn("😱 Connection to server failed");
                 }
-                this.setState({ isWaitingApi: false });
             });
     };
 
