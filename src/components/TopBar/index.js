@@ -38,14 +38,6 @@ class TopBar extends Component {
         }
     };
 
-    componentDidMount() {
-        console.log("TopBar did mount");
-    }
-
-    componentDidUpdate() {
-        console.log("TopBar did update");
-    }
-
     // open modal with specific form
     openModalWithForm = formToOpen => event => {
         if (event) {
