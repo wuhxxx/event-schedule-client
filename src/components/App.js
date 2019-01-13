@@ -10,7 +10,7 @@ import {
     LOCAL_USERNAME_KEY,
     LOCAL_TOKEN_KEY,
     LOCAL_EXPIRESAT_KEY,
-    LEAST_AVAILABLE_TIME
+    LEAST_TOKEN_AVAILABLE_INTERVAL
 } from "../constants";
 import TopBar from "./TopBar";
 import Schedule from "./Schedule";
@@ -35,8 +35,8 @@ const username = localStorage.getItem(LOCAL_USERNAME_KEY);
 const token = localStorage.getItem(LOCAL_TOKEN_KEY);
 const expiresAt = localStorage.getItem(LOCAL_EXPIRESAT_KEY);
 // token must be valid until this time, or user need to sign in again
-const validUntil = Date.now() + LEAST_AVAILABLE_TIME;
-if (username && token && expiresAt && expiresAt > validUntil) {
+const leastValidUntil = Date.now() + LEAST_TOKEN_AVAILABLE_INTERVAL;
+if (username && token && expiresAt && expiresAt > leastValidUntil) {
     store.dispatch(signUserIn({ username, token }, false));
 } else {
     store.dispatch(loadDemoEvents());
