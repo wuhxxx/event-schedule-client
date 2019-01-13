@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -9,8 +10,13 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import { toHexColor, toDecimal } from "../../utils/colorConverters.js";
 import { toTimeString, toNumOfMinutes } from "../../utils/timeConverters.js";
-import { WEEK_DAYS, DEFAULT_EVENT, COLOR_CHOICES } from "../../constants";
-import { addEvent, updateEvent } from "../../actions/eventActions.js";
+import { addEvent, updateEvent, setError } from "../../actions/eventActions.js";
+import {
+    WEEK_DAYS,
+    DEFAULT_EVENT,
+    COLOR_CHOICES,
+    EVENT_API_ROUTE
+} from "../../constants";
 
 import "../../styles/EventForm.css";
 
@@ -81,11 +87,12 @@ const BodyTextField = customTextField("black");
 class EventFormEditMode extends Component {
     static propTypes = {
         event: PropTypes.object,
-        isUserLoggedIn: PropTypes.bool,
         events: PropTypes.array.isRequired,
         addEvent: PropTypes.func.isRequired,
+        setError: PropTypes.func.isRequired,
         updateEvent: PropTypes.func.isRequired,
         setViewMode: PropTypes.func.isRequired,
+        isUserLoggedIn: PropTypes.bool.isRequired,
         handleCloseModal: PropTypes.func.isRequired
     };
 
@@ -118,11 +125,12 @@ class EventFormEditMode extends Component {
         event.preventDefault();
         // get values from props and state
         const {
-            isUserLoggedIn,
             events,
-            handleCloseModal,
+            setError,
             addEvent,
-            updateEvent
+            updateEvent,
+            isUserLoggedIn,
+            handleCloseModal
         } = this.props;
         const {
             title,
@@ -182,28 +190,68 @@ class EventFormEditMode extends Component {
         };
 
         let promise;
-        // check if user logged in
+        debugger;
+        // check if user logged in, if logged in, send request to api
         if (!isUserLoggedIn) {
-            promise = Promise.resolve(eventId);
+            // no user logged in, just do adding/updating locally
+            // set id
+            data.eventId = eventId;
+            // pass event data to next then()
+            promise = Promise.resolve(data);
         } else {
             this.setState({ isWaitingApi: true });
-            // call api
+            // call api, do remote thing
+            if (isUpdatingEvent) {
+                // request updating event
+                promise = axios
+                    .patch(`${EVENT_API_ROUTE}/${eventId}`, {
+                        data
+                    })
+                    .then(res => {
+                        // extract 'updatedEvent' and return to next then
+                        return res.data.data.updatedEvent;
+                    });
+            } else {
+                // request adding new event
+                promise = axios.post(`${EVENT_API_ROUTE}`, data).then(res => {
+                    // extract 'savedEvent' and return to next then
+                    return res.data.data.savedEvent;
+                });
+            }
         }
 
-        // manipulate events array locally
-        return promise.then(eventId => {
-            // set event id
-            data.eventId = eventId;
-            // add/update event locally
-            if (isUpdatingEvent) updateEvent(data);
-            else addEvent(data);
-            // close modal and fire toast
-            handleCloseModal();
-            const toastMsg = isUpdatingEvent
-                ? "✏️ Event updated!"
-                : "📌 Event added!";
-            toast(toastMsg);
-        });
+        // do local thing, change events array in redux store or handle error
+        return promise
+            .then(eventData => {
+                console.log("Event data: ", eventData);
+                // done waiting api
+                this.setState({ isWaitingApi: false });
+                // add/update event locally
+                if (isUpdatingEvent) updateEvent(eventData);
+                else addEvent(eventData);
+                // reset form
+                this.setState(this.deriveStateFrom(this.props));
+                // close modal
+                handleCloseModal();
+                // emit toast
+                const toastMsg = isUpdatingEvent
+                    ? "✏️ Event updated!"
+                    : "📌 Event added!";
+                toast(toastMsg);
+            })
+            .catch(err => {
+                this.setState({ isWaitingApi: false });
+                if (err.response) {
+                    // http error, dispatch set error action
+                    const errorRes = err.response.data.error;
+                    setError(errorRes);
+                    // close modal
+                    handleCloseModal();
+                } else {
+                    // local network error, just emit toast
+                    toast.warn("😱 Connection to server failed");
+                }
+            });
     };
 
     handleColorChange = (color, event) => {
@@ -373,7 +421,7 @@ const mapStateToProps = state => ({
     events: state.Event.events
 });
 
-const mapDispatchToProps = { addEvent, updateEvent };
+const mapDispatchToProps = { addEvent, updateEvent, setError };
 
 export default connect(
     mapStateToProps,

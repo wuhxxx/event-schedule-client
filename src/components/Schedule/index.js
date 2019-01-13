@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 import Timeline from "./Timeline.js";
 import EventsGroup from "./EventsGroup.js";
 import EventModal from "./EventModal.js";
@@ -9,13 +10,16 @@ import AddIcon from "@material-ui/icons/Add";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { clearError } from "../../actions/eventActions.js";
+import { logUserOut } from "../../actions/userActions.js";
+import { loadUserEvents, clearError } from "../../actions/eventActions.js";
 import {
     TIMELINE_UNIT_DURATION,
     EVENT_SLOT_HEIGHT,
     DEFAULT_TO,
     DEFAULT_FROM,
-    WEEK_DAYS
+    WEEK_DAYS,
+    AUTH_ERRORS,
+    EVENT_ERRORS
 } from "../../constants";
 
 import "../../styles/Schedule.css";
@@ -38,11 +42,13 @@ const StyledFab = withStyles({
 
 class Schedule extends Component {
     static propTypes = {
-        isUserLoggedIn: PropTypes.bool,
-        isLoadingUserEvents: PropTypes.bool,
-        events: PropTypes.array,
         error: PropTypes.object,
-        clearError: PropTypes.func
+        events: PropTypes.array.isRequired,
+        logUserOut: PropTypes.func.isRequired,
+        clearError: PropTypes.func.isRequired,
+        loadUserEvents: PropTypes.func.isRequired,
+        isUserLoggedIn: PropTypes.bool.isRequired,
+        isLoadingUserEvents: PropTypes.bool.isRequired
     };
 
     constructor(props) {
@@ -55,13 +61,36 @@ class Schedule extends Component {
         };
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.error) {
-            // consume error
-            this.props.clearError();
-        } else if (prevProps.events !== this.props.events) {
-            // if events array changed, reorganize
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.events !== this.props.events) {
+            // if events array changed, reorganize and set state
             this.setState(this.organizeEventsByWeekday(this.props.events));
+        }
+        if (this.props.error) {
+            console.log(this.props.error);
+            const { error } = this.props;
+            if (error.code) {
+                // handle http error response
+                const errorName = error.name;
+                if (AUTH_ERRORS[errorName]) {
+                    let msg = "😅 Token expired, pls sign in again";
+                    // jwt token lost, expired or invalid
+                    if (errorName === AUTH_ERRORS.DeletedUser) {
+                        // user is deleted
+                        msg = "😅 Account deleted, pls sign up";
+                    }
+                    toast.warn(msg);
+                    // sign out user
+                    this.props.logUserOut();
+                } else if (EVENT_ERRORS[errorName]) {
+                    // event does not exist
+                    toast.warn("😅 Event not found, reloading events");
+                    // reload user events
+                    this.props.loadUserEvents();
+                }
+            }
+            // clear error
+            this.props.clearError();
         }
     }
 
@@ -143,6 +172,7 @@ class Schedule extends Component {
     };
 
     render() {
+        const { isLoadingUserEvents } = this.props;
         const {
             isEditMode,
             isModalOpen,
@@ -155,17 +185,16 @@ class Schedule extends Component {
 
         return (
             <div className="cd-schedule">
-                {// spinner conditional rendering
-                this.props.isLoadingUserEvents && (
+                {/* Loading spinner, conditional render */
+                isLoadingUserEvents && (
                     <div className="progress-container">
                         <CircularProgress color="secondary" />
                         <div>Loading events...</div>
                     </div>
                 )}
+                {/* timeline, on the left of events grid */}
                 <Timeline from={timelineFrom} to={timelineTo} />
-                {/* <EventsWrapper
-                    eventsGroupUlHeight={this.getEventsGroupUlHeight()}
-                /> */}
+                {/* events grid */}
                 <div className="events">
                     <ul>
                         {WEEK_DAYS.map((WEEK_DAY, i) => (
@@ -180,20 +209,25 @@ class Schedule extends Component {
                         ))}
                     </ul>
                 </div>
-                {/* Add event button */}
-                <StyledTooltip
-                    title="Add Event"
-                    placement="top"
-                    aria-label="Add Event"
-                >
-                    <StyledFab
-                        color="secondary"
-                        aria-label="Add"
-                        onClick={this.addButtonClickHandler}
+                {/* Add event button, conditional render */
+                !isLoadingUserEvents && (
+                    <StyledTooltip
+                        title="Add Event"
+                        placement="top"
+                        aria-label="Add Event"
                     >
-                        <AddIcon style={{ width: "30px", height: "30px" }} />
-                    </StyledFab>
-                </StyledTooltip>
+                        <StyledFab
+                            color="secondary"
+                            aria-label="Add"
+                            onClick={this.addButtonClickHandler}
+                        >
+                            <AddIcon
+                                style={{ width: "30px", height: "30px" }}
+                            />
+                        </StyledFab>
+                    </StyledTooltip>
+                )}
+
                 <EventModal
                     closeModal={this.closeModal}
                     isEditMode={isEditMode}
@@ -217,5 +251,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { clearError }
+    { logUserOut, loadUserEvents, clearError }
 )(Schedule);

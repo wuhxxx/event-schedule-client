@@ -72,13 +72,13 @@ export const USER_API_ROUTE = "http://localhost:2333/api/v1/users";
 export const EVENT_API_ROUTE = "http://localhost:2333/api/v1/events";
 // Authentication header prefix
 export const AUTH_HEADER = "Bearer";
-// least token available time span required
-export const LEAST_AVAILABLE_TIME = 1000 * 60 * 60 * 4; // 4 hours
+// least time interval after which token be available
+export const LEAST_TOKEN_AVAILABLE_INTERVAL = 1000 * 60 * 60 * 4; // 4 hours
 // backend error responses
 export const AUTH_ERRORS = {
     Unauthorized: "Unauthorized",
-    InvalidToken: "JsonWebTokenError",
-    TokenExpired: "TokenExpiredError",
+    JsonWebTokenError: "JsonWebTokenError",
+    TokenExpiredError: "TokenExpiredError",
     DeletedUser: "DeletedUser"
 };
 

@@ -46,9 +46,10 @@ class EventModal extends Component {
 
         // remove class to selected event when modal closing
         if (prevProps.isModalOpen && !isModalOpen && prevProps.eventToShow) {
-            document
-                .getElementById(eventToShow.eventId)
-                .classList.remove("selected-event");
+            const lastOpenEventId = prevProps.eventToShow.eventId;
+            const eventBlockDOM = document.getElementById(lastOpenEventId);
+            // event may be deleted
+            if (eventBlockDOM) eventBlockDOM.classList.remove("selected-event");
         }
     }
 
