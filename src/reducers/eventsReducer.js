@@ -6,9 +6,7 @@ import {
     SET_ERROR,
     CLEAR_ERROR,
     LOAD_USER_EVENTS_BEGIN,
-    LOAD_USER_EVENTS_FINISH,
-    REQUEST_EVENT_API_BEGIN,
-    REQUEST_EVENT_API_FINISH
+    LOAD_USER_EVENTS_FINISH
 } from "../actions/actionTypes.js";
 
 const initialState = {
@@ -66,16 +64,6 @@ export default function(preState = initialState, action) {
             return {
                 ...preState,
                 isLoadingUserEvents: false
-            };
-        case REQUEST_EVENT_API_BEGIN:
-            return {
-                ...preState,
-                isRequestingEventAPI: true
-            };
-        case REQUEST_EVENT_API_FINISH:
-            return {
-                ...preState,
-                isRequestingEventAPI: false
             };
         default:
             return preState;

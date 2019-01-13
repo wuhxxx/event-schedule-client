@@ -8,9 +8,7 @@ import {
     SET_ERROR,
     CLEAR_ERROR,
     LOAD_USER_EVENTS_BEGIN,
-    LOAD_USER_EVENTS_FINISH,
-    REQUEST_EVENT_API_BEGIN,
-    REQUEST_EVENT_API_FINISH
+    LOAD_USER_EVENTS_FINISH
 } from "./actionTypes.js";
 
 // set store's events using given events
@@ -82,74 +80,12 @@ export const loadUserEvents = () => dispatch => {
         .catch(err => {
             dispatch({ type: LOAD_USER_EVENTS_FINISH });
             if (err.response) {
+                // http error response
                 const errorRes = err.response.data.error;
                 dispatch(setError(errorRes));
             } else {
-                // network error
+                // local network error
                 dispatch(setError(err));
-            }
-        });
-};
-
-//
-export const requestAddEvent = eventData => dispatch => {
-    dispatch({ type: REQUEST_EVENT_API_BEGIN });
-
-    axios
-        .post(`${EVENT_API_ROUTE}`, eventData)
-        .then(res => {
-            dispatch({ type: REQUEST_EVENT_API_FINISH });
-            console.log(res.data.data);
-        })
-        .catch(err => {
-            dispatch({ type: REQUEST_EVENT_API_FINISH });
-            if (err.response) {
-                console.log(err.response.data.error);
-            } else {
-                // network error
-                console.log(err);
-            }
-        });
-};
-
-//
-export const requestDeleteEvents = eventIdsToDelete => dispatch => {
-    dispatch({ type: REQUEST_EVENT_API_BEGIN });
-
-    axios
-        .delete(`${EVENT_API_ROUTE}`, { eventIds: eventIdsToDelete })
-        .then(res => {
-            dispatch({ type: REQUEST_EVENT_API_FINISH });
-            console.log(res.data.data);
-        })
-        .catch(err => {
-            dispatch({ type: REQUEST_EVENT_API_FINISH });
-            if (err.response) {
-                console.log(err.response.data.error);
-            } else {
-                // network error
-                console.log(err);
-            }
-        });
-};
-
-//
-export const requestUpdateEvent = newEvent => dispatch => {
-    dispatch({ type: REQUEST_EVENT_API_BEGIN });
-
-    axios
-        .patch(`${EVENT_API_ROUTE}`, { data: newEvent })
-        .then(res => {
-            dispatch({ type: REQUEST_EVENT_API_FINISH });
-            console.log(res.data.data);
-        })
-        .catch(err => {
-            dispatch({ type: REQUEST_EVENT_API_FINISH });
-            if (err.response) {
-                console.log(err.response.data.error);
-            } else {
-                // network error
-                console.log(err);
             }
         });
 };
