@@ -15,6 +15,7 @@ import {
  * @param {Boolean} toRememberUser true if remember user
  */
 export const signUserIn = (userData, toRememberUser) => dispatch => {
+    console.log("sign in user: ", userData);
     const { username, token } = userData;
     // bearer token
     const authToken = `${AUTH_HEADER} ${token}`;
@@ -22,9 +23,8 @@ export const signUserIn = (userData, toRememberUser) => dispatch => {
     axios.defaults.headers.common["Authorization"] = authToken;
     // save to localStorage
     if (toRememberUser) {
-        console.log("store user info to localStorage");
         // number of milesecond at which token expires according to local time
-        const expiresAt = Date.now() + userData.expiresIn;
+        const expiresAt = Date.now() + userData.expiresIn * 1000;
         localStorage.setItem(LOCAL_USERNAME_KEY, username);
         localStorage.setItem(LOCAL_TOKEN_KEY, token);
         localStorage.setItem(LOCAL_EXPIRESAT_KEY, expiresAt);

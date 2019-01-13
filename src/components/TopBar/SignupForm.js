@@ -107,7 +107,6 @@ class SignupForm extends Component {
         axios
             .post(`${USER_API_ROUTE}/signup`, newUser)
             .then(res => {
-                console.log(res.data.data);
                 this.setState({ isWaitingApi: false });
                 this.props.closeModal();
                 toast.info("🎉 You are logged in!");

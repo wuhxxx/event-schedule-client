@@ -62,7 +62,6 @@ class ResetForm extends Component {
         axios
             .delete(`${USER_API_ROUTE}`, { data: { email: emailInput } })
             .then(res => {
-                console.log(res);
                 this.setState({ isWaitingApi: false });
                 this.props.closeModal();
                 toast.warn("☠️ Account deleted!");
