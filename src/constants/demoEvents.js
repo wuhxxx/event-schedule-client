@@ -118,6 +118,7 @@ const yoga = [
     {
         eventId: "1545273914861",
         title: "Yoga Level 1",
+        location: "",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
         color: 10664370,
@@ -128,6 +129,7 @@ const yoga = [
     {
         eventId: "1545273914862",
         title: "Yoga Level 1",
+        location: "",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
         color: 10664370,
@@ -138,6 +140,7 @@ const yoga = [
     {
         eventId: "1545273914863",
         title: "Yoga Level 1",
+        location: "",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
         color: 10664370,
@@ -148,6 +151,7 @@ const yoga = [
     {
         eventId: "1545273914864",
         title: "Yoga Level 1",
+        location: "",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
         color: 10664370,
@@ -158,6 +162,7 @@ const yoga = [
     {
         eventId: "1545273914865",
         title: "Yoga Level 1",
+        location: "",
         description:
             "Yoga 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
         color: 10664370,
@@ -171,6 +176,7 @@ const restorativeYoga = [
     {
         eventId: "1545273914866",
         title: "Restorative Yoga",
+        location: "",
         description:
             "Restorative Yoga. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
         color: 16167015,
@@ -181,6 +187,7 @@ const restorativeYoga = [
     {
         eventId: "1545273914867",
         title: "Restorative Yoga",
+        location: "",
         description:
             "Restorative Yoga. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
         color: 16167015,
@@ -191,6 +198,7 @@ const restorativeYoga = [
     {
         eventId: "1545273914868",
         title: "Restorative Yoga",
+        location: "",
         description:
             "Restorative Yoga. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, unde, nulla. Vel unde deleniti, distinctio inventore quis molestiae perferendis, eum quo harum dolorum reiciendis sunt dicta maiores similique! Officiis repellat iure odio debitis enim eius commodi quae deserunt quam assumenda, ab asperiores reiciendis minima maxime odit laborum, libero veniam non?",
         color: 16167015,
