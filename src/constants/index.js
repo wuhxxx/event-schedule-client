@@ -68,8 +68,10 @@ export const PASSWORD_ERROR = "PASSWORD_ERROR";
 
 /********************** API related constants **********************/
 // api routes
-export const USER_API_ROUTE = "http://localhost:2333/api/v1/users";
-export const EVENT_API_ROUTE = "http://localhost:2333/api/v1/events";
+export const USER_API_ROUTE = `http://localhost:${process.env.PORT ||
+    8000}/api/v1/users`;
+export const EVENT_API_ROUTE = `http://localhost:${process.env.PORT ||
+    8000}/api/v1/events`;
 // Authentication header prefix
 export const AUTH_HEADER = "Bearer";
 // least time interval after which token be available
